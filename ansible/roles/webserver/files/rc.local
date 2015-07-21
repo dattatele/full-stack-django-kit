@@ -1,0 +1,5 @@
+#!/bin/sh -e
+
+
+/usr/local/bin/uwsgi --emperor /etc/uwsgi/vassals --uid www-data --gid www-data
+exit 0

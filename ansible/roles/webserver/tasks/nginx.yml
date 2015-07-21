@@ -1,0 +1,27 @@
+---
+- name: Install nginx
+  apt: pkg=nginx state=installed update_cache=true
+  notify:
+    - start nginx
+- name: Add default site
+  copy: src=sites-available/default dest=/etc/nginx/sites-available/default
+  notify:
+    - restart nginx
+- name: Add uWSGI params
+  copy: src=uwsgi/configs/uwsgi_params dest=/etc/nginx/uwsgi_params
+  notify:
+    - restart nginx
+- name: Add SSL Cert
+  copy: src=ssl/certs/localhost.cert dest=/etc/ssl/certs/localhost.cert
+  notify:
+    - restart nginx
+- name: Add SSL Key
+  copy: src=ssl/private/localhost.key dest=/etc/ssl/private/localhost.key
+  notify:
+    - restart nginx
+- name: Add SSL DHE Cert
+  copy: src=ssl/certs/dhparam.pem dest=/etc/ssl/certs/dhparam.pem
+  notify:
+    - restart nginx
+
+

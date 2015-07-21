@@ -1,1 +1,3 @@
-__version__ = '0.0.1'
+import version
+
+__version__ = version.get_git_version()

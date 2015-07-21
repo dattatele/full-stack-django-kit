@@ -1,5 +1,6 @@
 from fabric.api import local
 from mysite.version import get_git_version
+from glob import glob
 
 
 def test():
@@ -9,6 +10,10 @@ def test():
 def build():
     local('python manage.py collectstatic --noinput')
     local('python setup.py sdist bdist_wheel')
+
+
+def get_build_files():
+    return glob('dist/*-%s*' % get_git_version())
 
 
 def package():
@@ -25,7 +30,7 @@ def clean():
 
 
 def version():
-    return get_git_version()
+    print get_git_version()
 
 
 def bump(component):
@@ -35,7 +40,7 @@ def bump(component):
     value = get_git_version()
     components = value.split('.')[:3]
     if len(components) != 3:
-        print 'Invalid version'
+        print 'invalid version'
         exit(1)
     components = map(int, components)
     if component == 'major':

@@ -29,7 +29,7 @@ setup(
     cmdclass={'test': PyTest},
     packages=find_packages(),
     url='https://github.com/brady-vitrano/mysite',
-    setup_requires=["setuptools-git==1.1"],
+    setup_requires=[],
     install_requires=install_requirements,
     platforms=['any'],
     license='MIT',
