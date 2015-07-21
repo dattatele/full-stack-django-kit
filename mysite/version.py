@@ -107,8 +107,9 @@ def pep386adapt(version):
     if version is not None and '-' in version:
         # adapt git-describe version to be in line with PEP 386
         parts = version.split('-')
-        parts[-2] = 'post'+parts[-2]
+        parts[1] = 'post'+parts[1]
         version = '.'.join(parts[:-1])
+        #version += '-r' + parts[-1]
     return version
 
 if __name__ == "__main__":
