@@ -33,6 +33,15 @@ CI Pipeline
     * fab bump:(major|minor|patch)
 * Run deployment
 
+Fabric Tasks
+============
+* `fab deploy:(vagrant|prod)`
+    * Current Required Manual Tasks (Pending Automation):
+        * Deploy task requires `tar` and `whl` files to be moved to `ansible/roles/application/files`
+        * Change `ansible/roles/application/tasks/application.yml` to use correct version.
+        * Run
+* `fab build`
+* `fab clean`
 
 Notable Changes
 ===============

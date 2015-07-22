@@ -1,20 +1,20 @@
 ---
 - name: Create new release directory
-  file: path="/usr/share/nginx/releases/1.2.2" state=directory owner=www-data group=www-data
+  file: path="/usr/share/nginx/releases/1.3.0" state=directory owner=www-data group=www-data
 - name: Upload source package
-  unarchive: src=mysite-1.2.2.tar.gz dest=/usr/share/nginx/releases/1.2.2
+  unarchive: src=mysite-1.3.0.tar.gz dest=/usr/share/nginx/releases/1.3.0
 - name: Upload wheel package
-  copy: src=mysite-1.2.2-py27-none-any.whl dest=/usr/share/nginx/releases/1.2.2
+  copy: src=mysite-1.3.0-py27-none-any.whl dest=/usr/share/nginx/releases/1.3.0
 - name: Remove existing source if present
-  file: path=/usr/share/nginx/releases/1.2.2/mysite state=absent
+  file: path=/usr/share/nginx/releases/1.3.0/mysite state=absent
 - name: Normalize source directory after unarchive
-  command: mv /usr/share/nginx/releases/1.2.2/mysite-1.2.2 /usr/share/nginx/releases/1.2.2/mysite
+  command: mv /usr/share/nginx/releases/1.3.0/mysite-1.3.0 /usr/share/nginx/releases/1.3.0/mysite
 - name: Create virtual environment
-  pip: virtualenv=/usr/share/nginx/releases/1.2.2/env name=django
+  pip: virtualenv=/usr/share/nginx/releases/1.3.0/env name=django
 - name: Install wheel package
-  pip: chdir=/usr/share/nginx/releases/1.2.2 virtualenv=/usr/share/nginx/releases/1.2.2/env name=mysite-1.2.2-py27-none-any.whl
+  pip: chdir=/usr/share/nginx/releases/1.3.0 virtualenv=/usr/share/nginx/releases/1.3.0/env name=mysite-1.3.0-py27-none-any.whl
 - name: Link to new application
-  file: dest=/usr/share/nginx/localhost src=/usr/share/nginx/releases/1.2.2 state=link
+  file: dest=/usr/share/nginx/localhost src=/usr/share/nginx/releases/1.3.0 state=link
 - name: Restart vassal
   file: path=/etc/uwsgi/configs/localhost.ini state=touch
 
