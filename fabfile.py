@@ -20,8 +20,11 @@ def package():
     local('')
 
 
-def deploy():
-    local('ansible-playbook ansible/main.yml -i ansible/inventory/production.ini --list-hosts')
+def deploy(env):
+    if env == 'prod':
+        local('ansible-playbook ansible/main.yml -i ansible/inventory/production.ini --list-hosts')
+    elif env == 'vagrant':
+        local('ansible-playbook -i ansible/inventory/vagrant --private-key=.vagrant/machines/default/virtualbox/private_key -u vagrant --sudo ansible/deploy.yml')
 
 
 def clean():
