@@ -1,5 +1,5 @@
 ---
-- name: Django starter site
+- name: My Application
   hosts: webservers
   roles:
     - webserver

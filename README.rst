@@ -1,5 +1,16 @@
 
+Vagrant Usage
+=============
+::
 
+    vagrant up
+    vagrant reload
+    vagrant ssh
+    source /usr/share/nginx/localhost/env/bin/activate
+    cd /usr/share/nginx/localhost
+    sudo chown www-data -R /usr/share/nginx/localhost
+    django-admin startproject mysite
+    sudo touch /etc/uwsgi/configs/localhost.ini
 
 CI Pipeline
 ===========

@@ -4,6 +4,7 @@
   with_items:
     - build-essential
     - python-dev
+    - python-pip
 - name: Install uWSGI
   pip: name='http://projects.unbit.it/downloads/uwsgi-lts.tar.gz'
 - name: Create uWSGI directories
@@ -15,14 +16,16 @@
     - /var/log/uwsgi
 # TODO: Move to application as a requirement
 - name: Add apps uWSGI file to configs
-  copy: src=uwsgi/configs/localhost.ini dest=/etc/uwsgi/configs/localhost.ini mode=0750
+  copy: src=uwsgi/configs/localhost.ini dest=/etc/uwsgi/configs/localhost.ini mode=0750 owner=www-data group=www-data
 - name: Register localhost.ini as a vassal with emperor
   file: src=/etc/uwsgi/configs/localhost.ini dest=/etc/uwsgi/vassals/localhost.ini state=link owner=www-data group=www-data
-  #notify:
-  #  - restart nginx
+  notify:
+    - restart nginx
 - name: Add uwsgi to rc.local
   copy: src=rc.local dest=/etc/rc.local
   notify:
     - restart machine
+- name: Install virtualenv
+  pip: name=virtualenv
 - name: Create virtual environment
   pip: virtualenv=/usr/share/nginx/localhost/env name=django
