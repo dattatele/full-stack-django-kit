@@ -3,4 +3,3 @@
   hosts: webservers
   roles:
     - webserver
-    # - application
