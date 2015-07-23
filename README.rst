@@ -1,3 +1,9 @@
+About
+=====
+This my attempt at creating and defining best practices for managing a full stack Django application. It focuses on
+being simple to run Django in multiple environments with an emphasis on deployments and CI environments.
+
+
 Requirements
 ============
 
