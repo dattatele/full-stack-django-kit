@@ -12,12 +12,11 @@ Vagrant Usage
 
     vagrant up
     vagrant reload
-    vagrant ssh
-    source /usr/share/nginx/localhost/env/bin/activate
-    cd /usr/share/nginx/localhost
-    sudo chown www-data -R /usr/share/nginx/localhost
-    django-admin startproject mysite
-    sudo touch /etc/uwsgi/configs/localhost.ini
+    fab deploy:vagrant
+    # Visit: https://127.0.0.1:8443
+
+**Warning:** It is possible to fail during ``fab deploy`` because of an existing 127.0.0.1:2222 entry in ~/.ssh/known_hosts
+If you find this entry in your known_hosts file, try deleting the entry and try again.
 
 Build and Deploy
 ================

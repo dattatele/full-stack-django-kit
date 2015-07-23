@@ -27,5 +27,3 @@
     - restart machine
 - name: Install virtualenv
   pip: name=virtualenv
-- name: Create virtual environment
-  pip: virtualenv=/usr/share/nginx/localhost/env name=django
