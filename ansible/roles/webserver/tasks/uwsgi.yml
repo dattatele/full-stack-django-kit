@@ -16,7 +16,7 @@
     - /var/log/uwsgi
 # TODO: Move to application as a requirement
 - name: Add apps uWSGI file to configs
-  copy: src=uwsgi/configs/localhost.ini dest=/etc/uwsgi/configs/localhost.ini mode=0750 owner=www-data group=www-data
+  template: src=uwsgi/configs/localhost.ini dest=/etc/uwsgi/configs/localhost.ini mode=0750 owner=www-data group=www-data
 - name: Register localhost.ini as a vassal with emperor
   file: src=/etc/uwsgi/configs/localhost.ini dest=/etc/uwsgi/vassals/localhost.ini state=link owner=www-data group=www-data
   notify:

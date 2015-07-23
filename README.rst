@@ -1,8 +1,10 @@
 Requirements
 ============
 
+* Python PIP
+* PIP wheel ``pip install wheel``
+* Ansible ``pip install ansible``
 * Vagrant
-* Ansible
 * Mac/Linux Development Environment
 
 

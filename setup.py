@@ -36,8 +36,7 @@ setup(
     author_email='bjvitrano@gmail.com',
     description='Django demo',
     include_package_data=True,
-    tests_require=['pytest', 'pytest-pep8', 'pytest-django',
-                   'pytest-cov',
+    tests_require=['pytest', 'pytest-pep8', 'pytest-django', 'pytest-cov',
                    'mock'],
     zip_safe=False
 )

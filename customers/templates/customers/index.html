@@ -1,2 +1,12 @@
 <h1>Customers</h1>
 <p>This is just for verification</p>
+<table>
+    <tr>
+        <td>User</td>
+    </tr>
+    {% for customer in customers %}
+    <tr>
+        <td>{{ customer }}</td>
+    </tr>
+    {% endfor %}
+</table>

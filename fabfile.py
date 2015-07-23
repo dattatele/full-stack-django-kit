@@ -10,6 +10,7 @@ def test():
 
 
 def build():
+    local('python manage.py makemigrations')
     local('python manage.py collectstatic --noinput')
     local('python setup.py sdist bdist_wheel')
     files = get_build_files()
@@ -24,6 +25,15 @@ def package():
     local('')
 
 
+def provision(env):
+    # for reference
+    if env == 'vagrant':
+        # vagrant ansible playbook for reference, use vagrant provision
+        local('ansible-playbook -i ansible/inventory/vagrant --extra-vars "django_module_settings=mysite.settings.development" --private-key=.vagrant/machines/default/virtualbox/private_key -u vagrant -v --sudo ansible/main.yml')
+    elif env == 'prod':
+        local('ansible-playbook ansible/main.yml -i ansible/inventory/production.ini --list-hosts')
+
+
 def deploy(env, ver='latest'):
     if ver == 'latest':
         build()
@@ -35,7 +45,7 @@ def deploy(env, ver='latest'):
         exit(1)
 
     if env == 'prod':
-        local('ansible-playbook ansible/main.yml -i ansible/inventory/production.ini --list-hosts')
+        local('ansible-playbook ansible/deploy.yml -i ansible/inventory/production.ini --list-hosts')
     elif env == 'vagrant':
         local('ansible-playbook -i ansible/inventory/vagrant --extra-vars "version=%s" --private-key=.vagrant/machines/default/virtualbox/private_key -u vagrant -v --sudo ansible/deploy.yml' % ver)
 
