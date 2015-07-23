@@ -40,7 +40,7 @@ Build and deploy a specific version to production assuming ``1.1.1`` package is 
 Fabric Tasks
 ============
 * ``fab build``
-* ``fab deploy:(vagrant|prod),1.1.1``
+* ``fab deploy:(vagrant|prod)[,version]``
 * ``fab clean``
 * ``fab bump:(major|minor|patch)``
 * ``fab provision:(vagrant|prod)``
