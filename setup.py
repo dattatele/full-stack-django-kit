@@ -25,7 +25,6 @@ install_requirements = [
 setup(
     name='mysite',
     version=mysite.__version__,
-    tests_require=['pytest'],
     cmdclass={'test': PyTest},
     packages=find_packages(),
     url='https://github.com/brady-vitrano/mysite',
@@ -37,8 +36,8 @@ setup(
     author_email='bjvitrano@gmail.com',
     description='Django demo',
     include_package_data=True,
-    extras_require={
-        'testing': ['pytest'],
-    },
+    tests_require=['pytest', 'pytest-pep8', 'pytest-django',
+                   'pytest-cov',
+                   'mock'],
     zip_safe=False
 )
