@@ -8,23 +8,23 @@ server {
 
     # max upload size
     client_max_body_size 75M;   # edit me
-    #gzip  on;
-    #gzip_static on;
-    #gzip_comp_level 9;
-    #gzip_min_length 1400;
-    #gzip_types  text/plain text/css image/png image/gif image/jpeg application/x-javascript text/xml application/xml application/xml+rss text/javascript;
-    #gzip_vary  on;
-    #gzip_http_version 1.1;
-    #gzip_disable "MSIE [1-6]\.(?!.*SV1)";
+    gzip  on;
+    gzip_static on;
+    gzip_comp_level 9;
+    gzip_min_length 1400;
+    gzip_types  text/plain text/css image/png image/gif image/jpeg application/x-javascript text/xml application/xml application/xml+rss text/javascript;
+    gzip_vary  on;
+    gzip_http_version 1.1;
+    gzip_disable "MSIE [1-6]\.(?!.*SV1)";
 
     # Django media
     #location /media  {
     #    alias /usr/share/nginx/website/media;  # your Django project's media files - amend as required
     #}
 
-    #location /static {
-    #    alias /usr/share/nginx/website/assets; # your Django project's static files - amend as required
-    #}
+    location /static {
+        alias /usr/share/nginx/localhost/mysite/public; # your Django project's static files - amend as required
+    }
 
     # Finally, send all non-media requests to the Django server.
     location / {
