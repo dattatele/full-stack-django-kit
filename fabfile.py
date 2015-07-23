@@ -1,6 +1,8 @@
 from fabric.api import local
 from mysite.version import get_git_version
 from glob import glob
+import os
+import re
 
 
 def test():
@@ -10,6 +12,8 @@ def test():
 def build():
     local('python manage.py collectstatic --noinput')
     local('python setup.py sdist bdist_wheel')
+    files = get_build_files()
+    local('mv %s ansible/roles/application/files/' % ' '.join(files))
 
 
 def get_build_files():
@@ -20,20 +24,27 @@ def package():
     local('')
 
 
-def deploy(env):
+def deploy(env, ver='latest'):
+    if ver == 'latest':
+        build()
+        ver = get_git_version()
+
+    packages = [f for f in os.listdir('ansible/roles/application/files') if re.match(r'\w+-%s(\.tar.gz|.*\.whl)' % ver.replace('.', '\.'), f)]
+    if len(packages) != 2:
+        print 'failed to find packages for version: %s' % ver
+        exit(1)
+
     if env == 'prod':
         local('ansible-playbook ansible/main.yml -i ansible/inventory/production.ini --list-hosts')
     elif env == 'vagrant':
-        local('ansible-playbook -i ansible/inventory/vagrant --private-key=.vagrant/machines/default/virtualbox/private_key -u vagrant --sudo ansible/deploy.yml')
+        local('ansible-playbook -i ansible/inventory/vagrant --extra-vars "version=%s" --private-key=.vagrant/machines/default/virtualbox/private_key -u vagrant -v --sudo ansible/deploy.yml' % ver)
 
 
 def clean():
     local('rm -f dist/*.tar.gz')
     local('rm -f dist/*.whl')
-
-
-def version():
-    print get_git_version()
+    local('rm -rf build')
+    local('rm -rf .eggs')
 
 
 def bump(component):

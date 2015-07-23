@@ -1,20 +1,22 @@
 ---
 - name: Create new release directory
-  file: path="/usr/share/nginx/releases/1.3.0" state=directory owner=www-data group=www-data
+  file: path=/usr/share/nginx/releases/{{ version }} state=directory owner=www-data group=www-data
 - name: Upload source package
-  unarchive: src=mysite-1.3.0.tar.gz dest=/usr/share/nginx/releases/1.3.0
+  unarchive: src=mysite-{{ version }}.tar.gz dest=/usr/share/nginx/releases/{{ version }}
 - name: Upload wheel package
-  copy: src=mysite-1.3.0-py27-none-any.whl dest=/usr/share/nginx/releases/1.3.0
+  copy: src=mysite-{{ version }}-py27-none-any.whl dest=/usr/share/nginx/releases/{{ version }}
 - name: Remove existing source if present
-  file: path=/usr/share/nginx/releases/1.3.0/mysite state=absent
+  file: path=/usr/share/nginx/releases/{{ version }}/mysite state=absent
 - name: Normalize source directory after unarchive
-  command: mv /usr/share/nginx/releases/1.3.0/mysite-1.3.0 /usr/share/nginx/releases/1.3.0/mysite
+  command: mv /usr/share/nginx/releases/{{ version }}/mysite-{{ version }} /usr/share/nginx/releases/{{ version }}/mysite
 - name: Create virtual environment
-  pip: virtualenv=/usr/share/nginx/releases/1.3.0/env name=django
+  pip: virtualenv=/usr/share/nginx/releases/{{ version }}/env name=django
 - name: Install wheel package
-  pip: chdir=/usr/share/nginx/releases/1.3.0 virtualenv=/usr/share/nginx/releases/1.3.0/env name=mysite-1.3.0-py27-none-any.whl
+  pip: chdir=/usr/share/nginx/releases/{{ version }} virtualenv=/usr/share/nginx/releases/{{ version }}/env name=mysite-{{ version }}-py27-none-any.whl
+- name: Sync Django database.
+  shell: /usr/share/nginx/releases/{{ version }}/env/bin/python manage.py migrate --noinput chdir=/usr/share/nginx/releases/{{ version }}/mysite
 - name: Link to new application
-  file: dest=/usr/share/nginx/localhost src=/usr/share/nginx/releases/1.3.0 state=link
+  file: dest=/usr/share/nginx/localhost src=/usr/share/nginx/releases/{{ version }} state=link
 - name: Restart vassal
   file: path=/etc/uwsgi/configs/localhost.ini state=touch
 

@@ -34,7 +34,7 @@
 __all__ = ("get_git_version")
 
 from subprocess import Popen, PIPE
-
+import os
 
 def call_git_describe(abbrev=4):
     try:
@@ -50,7 +50,7 @@ def call_git_describe(abbrev=4):
 
 def read_release_version():
     try:
-        f = open("RELEASE-VERSION", "r")
+        f = open(os.path.join(os.path.dirname(os.path.dirname(__file__)), "RELEASE-VERSION"), "r")
 
         try:
             version = f.readlines()[0]
@@ -64,7 +64,7 @@ def read_release_version():
 
 
 def write_release_version(version):
-    f = open("RELEASE-VERSION", "w")
+    f = open(os.path.join(os.path.dirname(os.path.dirname(__file__)), "RELEASE-VERSION"), "w")
     f.write("%s\n" % version)
     f.close()
 

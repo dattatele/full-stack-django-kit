@@ -31,11 +31,13 @@ CI Pipeline
 
 * Bump version via tag
     * fab bump:(major|minor|patch)
-* Run deployment
+* Run deployment, if version option is specified file is required to be in ansible/roles/application/files directory
+    * fab deploy:vagrant # deploys latest version including any working changes!
+    * fab deploy:production,1.2.1
 
 Fabric Tasks
 ============
-* `fab deploy:(vagrant|prod)`
+* `fab deploy:(vagrant|prod),1.1.1`
     * Current Required Manual Tasks (Pending Automation):
         * Deploy task requires `tar` and `whl` files to be moved to `ansible/roles/application/files`
         * Change `ansible/roles/application/tasks/application.yml` to use correct version.
