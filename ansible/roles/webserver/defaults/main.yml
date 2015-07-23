@@ -1,2 +1,3 @@
 ---
+project_name: mysite
 django_settings_module: mysite.settings

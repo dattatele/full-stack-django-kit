@@ -4,7 +4,7 @@
   notify:
     - start nginx
 - name: Add default site
-  copy: src=sites-available/default dest=/etc/nginx/sites-available/default
+  template: src=sites-available/default dest=/etc/nginx/sites-available/default
   notify:
     - restart nginx
 - name: Add uWSGI params

@@ -77,7 +77,7 @@ Vagrant.configure(2) do |config|
     ansible.verbose = "v"
     ansible.limit = "development"
     ansible.extra_vars = {
-        django_module_settings: "mysite.settings.development"
+        django_module_settings: "mysite.settings.vagrant"
     }
 
   end

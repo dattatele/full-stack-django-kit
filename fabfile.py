@@ -1,4 +1,4 @@
-from fabric.api import local
+from fabric.api import local, run
 from mysite.version import get_git_version
 from glob import glob
 import os
@@ -29,7 +29,7 @@ def provision(env):
     # for reference
     if env == 'vagrant':
         # vagrant ansible playbook for reference, use vagrant provision
-        local('ansible-playbook -i ansible/inventory/vagrant --extra-vars "django_module_settings=mysite.settings.development" --private-key=.vagrant/machines/default/virtualbox/private_key -u vagrant -v --sudo ansible/main.yml')
+        local('ansible-playbook -i ansible/inventory/vagrant --extra-vars "django_module_settings=mysite.settings.vagrant" --private-key=.vagrant/machines/default/virtualbox/private_key -u vagrant -v --sudo ansible/main.yml')
     elif env == 'prod':
         local('ansible-playbook ansible/main.yml -i ansible/inventory/production.ini --list-hosts')
 
@@ -48,6 +48,10 @@ def deploy(env, ver='latest'):
         local('ansible-playbook ansible/deploy.yml -i ansible/inventory/production.ini --list-hosts')
     elif env == 'vagrant':
         local('ansible-playbook -i ansible/inventory/vagrant --extra-vars "version=%s" --private-key=.vagrant/machines/default/virtualbox/private_key -u vagrant -v --sudo ansible/deploy.yml' % ver)
+
+
+def rollback():
+    local('ansible-playbook -i ansible/inventory/vagrant --private-key=.vagrant/machines/default/virtualbox/private_key -u vagrant -v --sudo ansible/rollback.yml')
 
 
 def clean():
