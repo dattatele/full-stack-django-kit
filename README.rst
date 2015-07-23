@@ -12,7 +12,6 @@ Requirements
 Vagrant Usage
 =============
 ::
-    pip install -r
     vagrant up
     vagrant reload
     fab deploy:vagrant
@@ -21,7 +20,7 @@ Vagrant Usage
 **Warning:** It is possible to fail during ``fab deploy`` because of an existing 127.0.0.1:2222 entry in ``~/.ssh/known_hosts``
 If you find this entry in your known_hosts file, try deleting the entry and try again.
 
-**Warning:** Tested against ``Vagrant 1.7.4*``. If you are using older version of Vagrant and you want to be lazy and not
+**Warning:** Tested against ``Vagrant 1.7.4``. If you are using older version of Vagrant and you want to be lazy and not
 upgrade. You will need to change Vagrants private key to reference in ``fabfile.py`` to use ``~/.vagrant.d/insecure_private_key``
 
 
