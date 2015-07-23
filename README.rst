@@ -39,6 +39,7 @@ Fabric Tasks
 * ``fab deploy:(vagrant|prod),1.1.1``
 * ``fab clean``
 * ``fab bump:(major|minor|patch)``
+* ``fab provision:(vagrant|prod)``
 
 Notable Changes
 ===============
