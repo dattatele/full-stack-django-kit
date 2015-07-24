@@ -2,7 +2,7 @@
 - hosts: webservers
   tasks:
   - name: Get latest release
-    shell: ls -at1 | awk 'FNR==4 {print}' chdir=/usr/share/nginx/releases
+    shell: ls -t1 | awk 'FNR==2 {print}' chdir=/usr/share/nginx/releases
     register: result
   - debug: var=result
   - name: Update symlink to previous version
