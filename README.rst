@@ -18,6 +18,7 @@ Requirements
 Vagrant Usage
 =============
 ::
+
     vagrant up
     vagrant reload
     fab deploy:vagrant
