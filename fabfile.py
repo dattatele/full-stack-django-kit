@@ -1,4 +1,5 @@
 from fabric.api import local, run
+from fabric.context_managers import lcd
 from mysite.version import get_git_version
 from glob import glob
 import os
@@ -80,3 +81,6 @@ def bump(component):
     tag = '.'.join(map(str, components))
     local('git tag -a %s -m "chore(version): bump %s"' % (tag, component))
 
+def docs():
+    with lcd('docs'):
+        local('make html')
