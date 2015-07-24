@@ -76,6 +76,7 @@ Vagrant.configure(2) do |config|
     ansible.playbook = "ansible/main.yml"
     ansible.verbose = "v"
     ansible.limit = "development"
+    ansible.host_key_checking = false
     ansible.extra_vars = {
         django_module_settings: "mysite.settings.vagrant"
     }

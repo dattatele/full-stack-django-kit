@@ -33,9 +33,6 @@ Vagrant Usage
     fab deploy:vagrant
     # Visit: https://127.0.0.1:8443
 
-**Warning:** It is possible to fail during ``fab deploy`` because of an existing 127.0.0.1:2222 entry in ``~/.ssh/known_hosts``
-If you find this entry in your known_hosts file, try deleting the entry and try again.
-
 **Warning:** Tested against ``Vagrant 1.7.4``. If you are using older version of Vagrant and you want to keep using it,
 you will need to change Vagrant's private key reference in ``fabfile.py`` to use ``~/.vagrant.d/insecure_private_key``
 
@@ -59,6 +56,7 @@ Fabric Tasks
 * ``fab clean``
 * ``fab bump:(major|minor|patch)``
 * ``fab provision:(vagrant|prod)``
+* ``fab ping:vagrant``
 
 Notable Changes
 ===============

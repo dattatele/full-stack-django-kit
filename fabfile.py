@@ -84,3 +84,10 @@ def bump(component):
 def docs():
     with lcd('docs'):
         local('make html')
+
+def ping(env):
+    if env == 'vagrant':
+        local('ansible webservers -i ansible/inventory/vagrant --private-key=.vagrant/machines/default/virtualbox/private_key -u vagrant -v -m ping')
+    else:
+        print 'Not yet created for production env'
+
