@@ -1,2 +1,5 @@
 --index-url https://pypi.python.org/simple/
 .
+ansible==1.9.2
+Fabric==1.10.2
+wheel==0.24.0

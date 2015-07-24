@@ -9,11 +9,20 @@ Requirements
 
 * Python PIP
 * Fabric ``pip install fabric`` - Task manager used for running CI and Deployments
-* PIP wheel ``pip install wheel`` - For packaging dependencies
+* Wheel ``pip install wheel`` - For packaging dependencies
 * Ansible ``pip install ansible`` - Config managment and deployment
-* Vagrant
+* ``Vagrant >= 1.7.4``
 * Mac/Linux Development Environment
 
+Prepare
+=======
+Before installation of any pip packages, it is recommended to use a virtual environment such as ``virtualenv`` or ``anaconda``.
+I personally use anaconda_.
+
+::
+
+    git clone <repo>
+    pip install -r requirements.txt # for now, installs fabric, ansible, and wheel
 
 Vagrant Usage
 =============
@@ -27,9 +36,8 @@ Vagrant Usage
 **Warning:** It is possible to fail during ``fab deploy`` because of an existing 127.0.0.1:2222 entry in ``~/.ssh/known_hosts``
 If you find this entry in your known_hosts file, try deleting the entry and try again.
 
-**Warning:** Tested against ``Vagrant 1.7.4``. If you are using older version of Vagrant and you want to be lazy and not
-upgrade. You will need to change Vagrants private key to reference in ``fabfile.py`` to use ``~/.vagrant.d/insecure_private_key``
-
+**Warning:** Tested against ``Vagrant 1.7.4``. If you are using older version of Vagrant and you want to keep using it,
+you will need to change Vagrant's private key reference in ``fabfile.py`` to use ``~/.vagrant.d/insecure_private_key``
 
 Build and Deploy
 ================
@@ -66,3 +74,4 @@ Notes
 * ``python setup.py sdist``
 * ``ansible-playbook -i ansible/inventory/vagrant --private-key=.vagrant/machines/default/virtualbox/private_key -u vagrant --sudo ansible/deploy.yml``
 
+.. _anaconda: http://continuum.io/downloads
