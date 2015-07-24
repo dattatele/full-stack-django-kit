@@ -4,6 +4,5 @@
   - name: Get latest release
     shell: ls -t1 | awk 'FNR==2 {print}' chdir=/usr/share/nginx/releases
     register: result
-  - debug: var=result
   - name: Update symlink to previous version
     file: dest=/usr/share/nginx/localhost src=/usr/share/nginx/releases/{{ result.stdout }} state=link
