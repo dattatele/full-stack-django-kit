@@ -1,0 +1,5 @@
+---
+- name: My Application Web servers
+  hosts: webservers
+  roles:
+    - webserver

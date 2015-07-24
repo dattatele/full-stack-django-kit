@@ -36,6 +36,23 @@ Vagrant Usage
 **Warning:** Tested against ``Vagrant 1.7.4``. If you are using older version of Vagrant and you want to keep using it,
 you will need to change Vagrant's private key reference in ``fabfile.py`` to use ``~/.vagrant.d/insecure_private_key``
 
+---------------
+Vagrant Network
+---------------
+I am using Vagrants multiple machine for this application.
+
+VM List and Details
+* **web**
+    * **IP** 192.168.10.10
+    * **Ports**
+        * **SSH** guest: 22 host: 2222
+        * **Nginx** guest: 443 host: 8443
+        * **Nginx** guest: 80 host: 8080
+* **db**
+    * **IP** 192.168.10.11
+    * **Ports**
+        * **SSH** guest: 22 host: 2200
+
 Build and Deploy
 ================
 Build and deploy latest to Vagrant::

@@ -30,7 +30,7 @@ def provision(env):
     # for reference
     if env == 'vagrant':
         # vagrant ansible playbook for reference, use vagrant provision
-        local('ansible-playbook -i ansible/inventory/vagrant --extra-vars "django_module_settings=mysite.settings.vagrant" --private-key=.vagrant/machines/default/virtualbox/private_key -u vagrant -v --sudo ansible/main.yml')
+        local('ansible-playbook -i ansible/inventory/webservers/vagrant.ini --extra-vars "django_module_settings=mysite.settings.vagrant" --private-key=.vagrant/machines/web/virtualbox/private_key -u vagrant -v --sudo ansible/main.yml')
     elif env == 'prod':
         local('ansible-playbook ansible/main.yml -i ansible/inventory/production.ini --list-hosts')
 
@@ -48,11 +48,11 @@ def deploy(env, ver='latest'):
     if env == 'prod':
         local('ansible-playbook ansible/deploy.yml -i ansible/inventory/production.ini --list-hosts')
     elif env == 'vagrant':
-        local('ansible-playbook -i ansible/inventory/vagrant --extra-vars "version=%s" --private-key=.vagrant/machines/default/virtualbox/private_key -u vagrant -v --sudo ansible/deploy.yml' % ver)
+        local('ansible-playbook -i ansible/inventory/webservers/vagrant.ini --extra-vars "version=%s" --private-key=.vagrant/machines/web/virtualbox/private_key -u vagrant -v --sudo ansible/deploy.yml' % ver)
 
 
 def rollback():
-    local('ansible-playbook -i ansible/inventory/vagrant --private-key=.vagrant/machines/default/virtualbox/private_key -u vagrant -v --sudo ansible/rollback.yml')
+    local('ansible-playbook -i ansible/inventory/webservers/vagrant.ini --private-key=.vagrant/machines/web/virtualbox/private_key -u vagrant -v --sudo ansible/rollback.yml')
 
 
 def clean():
@@ -81,13 +81,16 @@ def bump(component):
     tag = '.'.join(map(str, components))
     local('git tag -a %s -m "chore(version): bump %s"' % (tag, component))
 
+
 def docs():
     with lcd('docs'):
         local('make html')
 
+
 def ping(env):
     if env == 'vagrant':
-        local('ansible webservers -i ansible/inventory/vagrant --private-key=.vagrant/machines/default/virtualbox/private_key -u vagrant -v -m ping')
+        local('ansible webservers -i ansible/inventory/webservers/vagrant.ini --private-key=.vagrant/machines/web/virtualbox/private_key -u vagrant -v -m ping')
+        local('ansible databases -i ansible/inventory/databases/vagrant.ini --private-key=.vagrant/machines/db/virtualbox/private_key -u vagrant -v -m ping')
     else:
         print 'Not yet created for production env'
 
