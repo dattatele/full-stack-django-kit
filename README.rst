@@ -43,6 +43,7 @@ Vagrant Network
 I am using Vagrants multiple machine for this application.
 
 VM List and Details
+
 * **web**
     * **IP** 192.168.10.10
     * **Ports**
