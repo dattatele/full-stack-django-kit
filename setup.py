@@ -19,7 +19,8 @@ class PyTest(TestCommand):
         sys.exit(errcode)
 
 install_requirements = [
-    'Django==1.8.3'
+    'Django==1.8.3',
+    'mysqlclient==1.3.6'
 ]
 
 setup(

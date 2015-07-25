@@ -24,7 +24,7 @@ Vagrant.configure(2) do |config|
       ansible.limit = "webservers"
       ansible.host_key_checking = false
       ansible.extra_vars = {
-          django_module_settings: "mysite.settings.vagrant"
+          django_settings_module: "mysite.settings.vagrant"
       }
 
     end

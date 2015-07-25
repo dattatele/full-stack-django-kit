@@ -11,6 +11,11 @@
 - name: Start Mysql Service
   service: name=mysql state=started enabled=true
 
+- name: Update my.cnf
+  copy: src=mysql/my.cnf dest=/etc/mysql/my.cnf
+  notify:
+    - restart mysql
+
 - name: Install python Mysql package #required for mysql_db tasks
   apt: name=python-mysqldb state=present
 
@@ -18,4 +23,4 @@
   mysql_db: name=demo state=present collation=utf8_general_ci
 
 - name: Create a database user
-  mysql_user: name=demo password=demo priv=*.*:ALL host=localhost state=present
+  mysql_user: name=demo password=demo priv=*.*:ALL host=192.168.10.10 state=present
