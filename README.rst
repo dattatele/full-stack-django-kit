@@ -76,6 +76,10 @@ Fabric Tasks
 * ``fab bump:(major|minor|patch)``
 * ``fab provision:(vagrant|prod)``
 * ``fab ping:vagrant``
+* ``fab docs``
+* ``fab test``
+
+
 
 Notable Changes
 ===============
