@@ -12,6 +12,7 @@ Requirements
 * Wheel ``pip install wheel`` - For packaging dependencies
 * Ansible ``pip install ansible`` - Config managment and deployment
 * ``Vagrant >= 1.7.4``
+* MySQL client
 * Mac/Linux Development Environment
 
 Prepare
@@ -78,7 +79,6 @@ Fabric Tasks
 * ``fab ping:vagrant``
 * ``fab docs``
 * ``fab test``
-
 
 
 Notable Changes

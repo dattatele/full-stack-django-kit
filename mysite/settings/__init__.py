@@ -12,6 +12,15 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+from django.core.exceptions import ImproperlyConfigured
+
+# Two-scoops recommendation
+def get_env_variable(variable):
+    try:
+        return os.environ[variable]
+    except KeyError:
+        error_msg = "Set the {} environment variable".format(variable)
+        raise ImproperlyConfigured(error_msg)
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
@@ -104,3 +113,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'public')
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'mysite', 'static'),
+)

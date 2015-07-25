@@ -22,6 +22,10 @@ server {
     #    alias /usr/share/nginx/website/media;  # your Django project's media files - amend as required
     #}
 
+    location /favicon.ico {
+        alias /usr/share/nginx/localhost/{{ project_name }}/public/favicon.ico;
+    }
+
     location /static {
         alias /usr/share/nginx/localhost/{{ project_name }}/public; # your Django project's static files - amend as required
     }
