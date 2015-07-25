@@ -32,11 +32,11 @@ Vagrant Usage
     export ANSIBLE_HOST_KEY_CHECKING=False # vagrant requirement only
     vagrant up
     vagrant reload
-    fab deploy:vagrant
+    fab deploy.vagrant
     # Visit: https://127.0.0.1:8443, it might take a sec., plus you can run deploy again
 
 **Warning:** Tested against ``Vagrant 1.7.4``. If you are using older version of Vagrant and you want to keep using it,
-you will need to change Vagrant's private key reference in ``fabfile.py`` to use ``~/.vagrant.d/insecure_private_key``
+you will need to change Vagrant's private key reference in ``fabfile/deploy.py`` to use ``~/.vagrant.d/insecure_private_key``
 
 ---------------
 Vagrant Network
@@ -56,22 +56,10 @@ VM List and Details
     * **Ports**
         * **SSH** guest: 22 host: 2200
 
-Build and Deploy
-================
-Build and deploy latest to Vagrant::
-
-    fab build
-    fab deploy:vagrant
-
-Build and deploy a specific version to production assuming ``1.1.1`` package is in proper location::
-
-    fab deploy:prod,1.1.1
-
-**Warning:** ``fab build`` will include any working file changes!
 
 Fabric Tasks
 ============
-
+Tasks for CI/CD pipelines.
 ::
 
     $ fab --list
@@ -99,7 +87,7 @@ Fabric Tasks
 Notable Changes
 ===============
 * Store application requirements in ``setup.py``
-* Added ``fabfile.py`` for task manager to be used in CI scripts
+* Added ``fabfile`` module for task manager to be used in CI scripts
 * Added ``ansible`` directory for deployment scripts and ``Vagrant`` provisioning
 * Moved ``settings.py`` into ``mysite/settings/__init__.py`` and added additional environments
 * Set ``DJANGO_SETTINGS_MODULE=mysite.settings.development`` in ``uwsgi.py``
