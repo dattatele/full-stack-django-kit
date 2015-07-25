@@ -71,14 +71,29 @@ Build and deploy a specific version to production assuming ``1.1.1`` package is 
 
 Fabric Tasks
 ============
-* ``fab build``
-* ``fab deploy:(vagrant|prod)[,version]``
-* ``fab clean``
-* ``fab bump:(major|minor|patch)``
-* ``fab provision:(vagrant|prod)``
-* ``fab ping:vagrant``
-* ``fab docs``
-* ``fab test``
+
+::
+
+    $ fab --list
+    Available commands:
+
+        build             (Default) Peforms makemigrations and collectstatic then packages with sdist and bdist_wheel
+        build.bump        Bump git tag. Usage: build.bump:(major|minor|patch)
+        build.clean       Remove build files and directories
+        build.package     (Default) Peforms makemigrations and collectstatic then packages with sdist and bdist_wheel
+        deploy            (Default) Deploy latest version or specific tag to vagrant. Usage: deploy.vagrant:(latest|#.#.#)
+        deploy.provision  Run ansible playbook for webservers/databases by env. Usage: deploy.provision:(vagrant|prod)
+        deploy.rollback   Rollback to previous deployed version of the app
+        deploy.vagrant    (Default) Deploy latest version or specific tag to vagrant. Usage: deploy.vagrant:(latest|#.#.#)
+        docs              (Default) Build Sphinx HTML documentation
+        docs.build        (Default) Build Sphinx HTML documentation
+        docs.deploy       PENDING: should upload to docs server
+        test              (Default) ping; unit; acceptance; integration
+        test.acceptance   PENDING: Perform acceptance tests (pep8)
+        test.all          (Default) ping; unit; acceptance; integration
+        test.integration  PENDING: Run integration tests for specific environments
+        test.ping         Ping servers with ansible Usage: fab test.ping:(vagrant|env)
+        test.unit         Perform unit tests via python setup.py test
 
 
 Notable Changes
