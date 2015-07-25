@@ -28,10 +28,11 @@ Vagrant Usage
 =============
 ::
 
+    export ANSIBLE_HOST_KEY_CHECKING=False
     vagrant up
     vagrant reload
     fab deploy:vagrant
-    # Visit: https://127.0.0.1:8443
+    # Visit: https://127.0.0.1:8443, it might take a sec., plus you can run deploy again
 
 **Warning:** Tested against ``Vagrant 1.7.4``. If you are using older version of Vagrant and you want to keep using it,
 you will need to change Vagrant's private key reference in ``fabfile.py`` to use ``~/.vagrant.d/insecure_private_key``
