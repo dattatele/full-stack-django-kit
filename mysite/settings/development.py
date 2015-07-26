@@ -1,5 +1,11 @@
 from mysite.settings import *
 
+# Add styleguide/dist directory
+STATICFILES_DIRS += (
+    os.path.join(BASE_DIR, 'styleguide', 'dist'),
+)
+
+
 # Create log directory if not already found
 try:
     os.mkdir(os.path.join(BASE_DIR, 'logs'))

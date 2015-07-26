@@ -15,6 +15,15 @@ Requirements
 * MySQL client
 * Mac/Linux Development Environment
 
+Style Guide Requirements
+========================
+These requirements are required if you are going to run style guide builds using ``gulp`` via ``fab build.styleguide``.
+
+* NodeJS
+* Bower
+* Gulp
+
+
 Prepare
 =======
 Before installation of any pip packages, it is recommended to use a virtual environment such as ``virtualenv`` or ``anaconda``.
@@ -69,6 +78,7 @@ Tasks for CI/CD pipelines.
         build.bump        Bump git tag. Usage: build.bump:(major|minor|patch)
         build.clean       Remove build files and directories
         build.package     (Default) Peforms makemigrations and collectstatic then packages with sdist and bdist_wheel
+        build.styleguide  Run gulp build task in styleguide for creating minified CSS and JS
         deploy            (Default) Deploy latest version or specific tag to vagrant. Usage: deploy.vagrant:(latest|#.#.#)
         deploy.provision  Run ansible playbook for webservers/databases by env. Usage: deploy.provision:(vagrant|prod)
         deploy.rollback   Rollback to previous deployed version of the app

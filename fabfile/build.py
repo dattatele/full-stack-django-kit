@@ -1,5 +1,6 @@
 from glob import glob
 from fabric.api import task, local, run
+from fabric.context_managers import lcd
 from mysite.version import get_git_version
 
 
@@ -53,3 +54,12 @@ def bump(component):
         components = [components[0], components[1], components[2] + 1]
     tag = '.'.join(map(str, components))
     local('git tag -a %s -m "chore(version): bump %s"' % (tag, component))
+
+
+@task()
+def styleguide():
+    """
+    Run gulp build task in styleguide for creating minified CSS and JS
+    """
+    with lcd('styleguide'):
+        local('gulp build')

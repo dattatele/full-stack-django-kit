@@ -1,0 +1,4 @@
+/***
+ * MySite javascript
+ *
+ */

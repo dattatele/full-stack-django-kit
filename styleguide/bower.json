@@ -1,0 +1,25 @@
+{
+  "name": "styleguide",
+  "version": "0.1.0",
+  "homepage": "https://github.com/brady-vitrano/django-build-deployment-experiments",
+  "authors": [
+    "Brady Vitrano <bjvitrano@gmail.com>"
+  ],
+  "description": "Style guide for website",
+  "main": "site.js",
+  "moduleType": [
+    "es6"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.5",
+    "font-awesome": "~4.3.0"
+  }
+}
