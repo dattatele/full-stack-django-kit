@@ -1,7 +1,7 @@
 import os
 import re
 from glob import glob
-from fabric.api import task, local, run
+from fabric.api import task, local, run, env
 from fabric.context_managers import lcd
 from mysite.version import get_git_version
 from build import create_package
@@ -24,10 +24,14 @@ def vagrant(ver='latest'):
     local('ansible-playbook -i ansible/inventory/webservers/vagrant.ini --extra-vars "version=%s" --private-key=.vagrant/machines/web/virtualbox/private_key -u vagrant -v --sudo ansible/deploy.yml' % ver)
 
 
+@task
 def production(ver='latest'):
     """
     Deploy latest version or specific tag to production. Usage: deploy.production:(latest|#.#.#)
     """
+    if 'settings' not in env:
+        env['settings'] = 'mysite.settings.production'
+
     if ver == 'latest':
         create_package()
         ver = get_git_version()
