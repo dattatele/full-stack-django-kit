@@ -23,16 +23,22 @@ These requirements are required if you are going to run style guide builds using
 * Bower
 * Gulp
 
-
 Prepare
 =======
 Before installation of any pip packages, it is recommended to use a virtual environment such as ``virtualenv`` or ``anaconda``.
 I personally use anaconda_.
 
+Assuming you have all above requirements, the following should work:
+
 ::
 
     git clone <repo>
     pip install -r requirements.txt # for now, installs fabric, ansible, and wheel
+    cd styleguide
+    npm install
+    bower install
+    cd ..
+    fab build.styleguide
 
 Vagrant Usage
 =============
@@ -69,6 +75,9 @@ VM List and Details
 Fabric Tasks
 ============
 Tasks for CI/CD pipelines.
+
+When building/deploying, you can alter django settings module with fabric's set option ``fab ... --set settings=mysite.settings``
+
 ::
 
     $ fab --list
@@ -94,6 +103,11 @@ Tasks for CI/CD pipelines.
         test.unit         Perform unit tests via python setup.py test
 
 
+Style Guide
+===========
+
+See styleguide_
+
 Notable Changes
 ===============
 * Store application requirements in ``setup.py``
@@ -110,3 +124,4 @@ Notes
 
 
 .. _anaconda: http://continuum.io/downloads
+.. _styleguide: styleguide/README.rst
