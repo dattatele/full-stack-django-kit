@@ -1,0 +1,5 @@
+---
+- name: CI Servers
+  hosts: ciservers
+  roles:
+    - ci

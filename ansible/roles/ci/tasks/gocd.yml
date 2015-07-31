@@ -1,0 +1,12 @@
+---
+- name: Add APT GPG Signing Key
+  apt_key: url=https://bintray.com/user/downloadSubjectPublicKey?username=gocd state=present
+
+- name: Add APT repository
+  apt_repository: repo='deb http://dl.bintray.com/gocd/gocd-deb/ /' state=present update_cache=yes
+
+- name: Install GoServer server package
+  apt: name=go-server state=present
+
+- name: Start GoServer Service
+  service: name=go-server state=started enabled=true

@@ -20,8 +20,8 @@ def vagrant(ver='latest'):
     if len(packages) != 2:
         print 'failed to find packages for version: %s' % ver
         exit(1)
-
-    local('ansible-playbook -i ansible/inventory/webservers/vagrant.ini --extra-vars "version=%s" --private-key=.vagrant/machines/web/virtualbox/private_key -u vagrant -v --sudo ansible/deploy.yml' % ver)
+    # Due to how ansible resolves hosts, we cannot reuse a single vagrant.ini
+    local('ansible-playbook -i ansible/inventory/vagrant/webservers.ini --extra-vars "version=%s" --sudo ansible/deploy.yml' % ver)
 
 
 @task
@@ -49,7 +49,7 @@ def rollback():
     """
     Rollback to previous deployed version of the app
     """
-    local('ansible-playbook -i ansible/inventory/webservers/vagrant.ini --private-key=.vagrant/machines/web/virtualbox/private_key -u vagrant -v --sudo ansible/rollback.yml')
+    local('ansible-playbook -i ansible/inventory/vagrant/webservers.ini -v --sudo ansible/rollback.yml')
 
 
 @task()
@@ -59,7 +59,7 @@ def provision(env):
     """
     if env == 'vagrant':
         # vagrant ansible playbook for reference, use vagrant provision
-        local('ansible-playbook -i ansible/inventory/webservers/vagrant.ini --extra-vars "django_module_settings=mysite.settings.vagrant" --private-key=.vagrant/machines/web/virtualbox/private_key -u vagrant -v --sudo --limit webservers ansible/webservers.yml')
-        local('ansible-playbook -i ansible/inventory/databases/vagrant.ini --private-key=.vagrant/machines/db/virtualbox/private_key -u vagrant -v --sudo ansible/dbservers.yml')
+        local('ansible-playbook -i ansible/inventory/vagrant/webservers.ini -v --sudo ansible/webservers.yml')
+        local('ansible-playbook -i ansible/inventory/vagrant/databases.ini -v --sudo ansible/dbservers.yml')
     elif env == 'prod':
         local('ansible-playbook ansible/main.yml -i ansible/inventory/production.ini --list-hosts')

@@ -45,6 +45,24 @@ Vagrant.configure(2) do |config|
     end
   end
 
+  config.vm.define "ci" do |ci|
+    ci.vm.box = "ubuntu/trusty64"
+    ci.vm.network "forwarded_port", guest: 8153, host: 8153
+    ci.vm.network "forwarded_port", guest: 22, host: 2201, id: "ssh"
+    ci.vm.network "private_network", ip: "192.168.10.12"
+    ci.vm.provider "virtualbox" do |vb|
+        vb.customize ["modifyvm", :id, "--memory", "1024"]
+    end
+
+    ci.vm.provision "ansible" do |ansible|
+         ansible.sudo = true
+         ansible.inventory_path = "ansible/inventory/ciservers/vagrant.ini"
+         ansible.playbook = "ansible/ciservers.yml"
+         ansible.limit = "ciservers"
+         ansible.verbose = "v"
+         ansible.host_key_checking = false
+      end
+    end
 
 
 end
