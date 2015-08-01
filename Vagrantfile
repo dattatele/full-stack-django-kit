@@ -22,9 +22,9 @@ Vagrant.configure(2) do |config|
       ansible.playbook = "ansible/webservers.yml"
       ansible.verbose = "v"
       ansible.limit = "webservers"
-      ansible.host_key_checking = false
       ansible.extra_vars = {
-          django_settings_module: "mysite.settings.vagrant"
+          django_settings_module: "mysite.settings.vagrant",
+          enable_docs: true
       }
 
     end
@@ -41,7 +41,6 @@ Vagrant.configure(2) do |config|
        ansible.playbook = "ansible/dbservers.yml"
        ansible.limit = "databases"
        ansible.verbose = "v"
-       ansible.host_key_checking = false
     end
   end
 
@@ -51,7 +50,7 @@ Vagrant.configure(2) do |config|
     ci.vm.network "forwarded_port", guest: 22, host: 2201, id: "ssh"
     ci.vm.network "private_network", ip: "192.168.10.12"
     ci.vm.provider "virtualbox" do |vb|
-        vb.customize ["modifyvm", :id, "--memory", "1024"]
+        vb.customize ["modifyvm", :id, "--memory", "2048"]
     end
 
     ci.vm.provision "ansible" do |ansible|
@@ -60,7 +59,6 @@ Vagrant.configure(2) do |config|
          ansible.playbook = "ansible/ciservers.yml"
          ansible.limit = "ciservers"
          ansible.verbose = "v"
-         ansible.host_key_checking = false
       end
     end
 

@@ -12,9 +12,11 @@ def build():
 
 
 @task()
-def deploy():
+def deploy(environment='vagrant'):
     """
-    PENDING: should upload to docs server
+    Upload docs to server
     """
-    print 'pending docs deployment script'
-
+    build()
+    if environment == 'vagrant':
+        destination = '/usr/share/nginx/localhost/mysite/docs/build/html'
+        local("rsync -avz --rsync-path='sudo rsync' -e 'ssh -p 2222 -i .vagrant/machines/web/virtualbox/private_key -o StrictHostKeyChecking=no' docs/build/html/ %s@%s:%s " % ('vagrant', 'localhost', destination))

@@ -1,0 +1,27 @@
+---
+- name: add apt gpg signing key
+  apt_key: url=https://bintray.com/user/downloadSubjectPublicKey?username=gocd state=present
+
+- name: add gocd apt repository
+  apt_repository: repo='deb http://dl.bintray.com/gocd/gocd-deb/ /' state=present update_cache=yes
+
+- name: install gocd agent
+  apt: pkg=go-agent state=present
+
+- name: Start Go Agent
+  service: name=go-agent state=started enabled=true
+
+- name: install build requirements
+  apt: pkg="{{ item }}" state=installed update_cache=true
+  with_items:
+    - build-essential
+    - python-dev
+    - python-pip
+
+- name: install virtualenv
+  pip: name=virtualenv
+
+- name: install fabric
+  pip: name=fabric
+
+- include: nodejs.yml

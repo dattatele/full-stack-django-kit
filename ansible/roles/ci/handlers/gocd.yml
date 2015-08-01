@@ -3,3 +3,9 @@
   service: name=go-server state=started
 - name: restart go server
   service: name=go-server state=restarted
+- name: start go agent
+  service: name=go-agent state=started
+- name: restart go agent
+  service: name=go-agent state=restarted
+
+

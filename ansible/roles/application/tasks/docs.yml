@@ -1,0 +1,7 @@
+---
+- name: create docs folder
+  file: path=/usr/share/nginx/localhost/mysite/docs/build/html state=directory owner=www-data group=www-data recurse=yes
+
+- name: sync docs build folder to remote
+  synchronize: src=docs dest=/usr/share/nginx/localhost/mysite/docs/build/html rsync_path='sudo rsync'
+

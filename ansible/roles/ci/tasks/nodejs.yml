@@ -1,0 +1,12 @@
+---
+- name: add nodejs repo
+  apt_repository: repo='ppa:chris-lea/node.js' state=present update_cache=yes
+
+- name: install nodejs
+  apt: pkg=nodejs state=latest
+
+- name: install bower
+  npm: name=bower global=yes state=present
+
+- name: install gulp
+  npm: name=gulp global=yes state=present

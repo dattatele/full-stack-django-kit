@@ -1,0 +1,23 @@
+server {
+    listen 80;
+    charset     utf-8;
+
+    # max upload size
+    client_max_body_size 1M;   # edit me
+    gzip  on;
+    gzip_static on;
+    gzip_comp_level 9;
+    gzip_min_length 1400;
+    gzip_types  text/plain text/css image/png image/gif image/jpeg application/x-javascript text/xml application/xml application/xml+rss text/javascript;
+    gzip_vary  on;
+    gzip_http_version 1.1;
+    gzip_disable "MSIE [1-6]\.(?!.*SV1)";
+
+    root /usr/share/nginx/localhost/{{ project_name }}/docs/build/html;
+
+    location / {
+        try_files $uri $uri/ $uri.html =404;
+    }
+
+
+}

@@ -1,2 +1,4 @@
 ---
-- include: gocd.yml
+- include: gocd-server.yml
+- include: gocd-agent.yml
+- include: git-server.yml

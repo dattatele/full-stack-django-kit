@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cruise xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cruise-config.xsd" schemaVersion="75">
+    <server artifactsdir="artifacts" commandRepositoryLocation="default" serverId="" />
+    <pipelines group="ProjectName">
+        <pipeline name="Prepare">
+            <materials>
+                <git url="/home/git/mysite.git" />
+            </materials>
+            <stage name="Acceptence">
+                <jobs>
+                    <job name="Job1">
+                        <tasks>
+                            <exec command="fabric">
+                                <arg>task1</arg>
+                            </exec>
+                        </tasks>
+                    </job>
+                    <job name="Job2">
+                        <tasks>
+                            <exec command="fabric">
+                                <arg>--list</arg>
+                            </exec>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
+    </pipelines>
+    <agents>
+        <agent hostname="vagrant-ubuntu-trusty-64" ipaddress="10.0.2.15" uuid="08532f58-2b71-4d31-b8ae-242719ea11c6" />
+    </agents>
+</cruise>
+
