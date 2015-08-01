@@ -19,7 +19,7 @@ def install():
     PENDING
     """
     local('virtualenv env')
-    local('source env/bin/activate')
+    local('env/bin/python --version')
 
     with lcd('styleguide'):
         local('npm install')
