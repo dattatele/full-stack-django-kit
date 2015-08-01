@@ -10,5 +10,18 @@ def verify():
     local('npm --version')
     local('gulp --version')
     local('bower --version')
+    local('virtualenv --version')
 
+
+@task()
+def install():
+    """
+    PENDING
+    """
+    local('virtualenv env')
+    local('source env/bin/activate')
+
+    with lcd('styleguide'):
+        local('npm install')
+        local('bower install')
 
