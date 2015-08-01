@@ -21,6 +21,8 @@ def install():
     """
     local('virtualenv env')
     local('env/bin/python --version')
+    local('env/bin/python setup.py install')
+    local('env/bin/pip install -r requirements.txt')
 
     with lcd('styleguide'):
         local('npm install')
