@@ -1,7 +1,7 @@
 from glob import glob
 from fabric.api import task, local, run, env
 from fabric.context_managers import lcd
-import build
+from build import styleguide, package
 
 @task()
 def verify():
@@ -32,5 +32,5 @@ def build():
     """
     PENDING
     """
-    build.styleguide()
-    build.package()
+    styleguide()
+    package()
