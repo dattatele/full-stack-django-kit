@@ -1,6 +1,7 @@
 from glob import glob
 from fabric.api import task, local, run, env
 from fabric.context_managers import lcd
+import build
 
 @task()
 def verify():
@@ -25,3 +26,11 @@ def install():
         local('npm install')
         local('bower install')
 
+
+@task()
+def build():
+    """
+    PENDING
+    """
+    build.styleguide()
+    build.package()
