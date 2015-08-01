@@ -17,6 +17,7 @@
   authorized_key: user=git key="{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
   # git remote add ci ssh://git@127.0.0.1:2201/~/mysite.git
   # git push ci master
+  # git push ci --tags
 
 - name: verify permissions
   file: path=/home/git/mysite.git owner=git group=git recurse=yes
