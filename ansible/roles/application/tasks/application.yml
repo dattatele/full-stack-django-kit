@@ -17,11 +17,13 @@
   pip: chdir=/usr/share/nginx/releases/{{ version }} virtualenv=/usr/share/nginx/releases/{{ version }}/env name=mysite-{{ version }}-py27-none-any.whl
 - name: Update log application log permissions
   file: path=/usr/share/nginx/releases/{{ version }}/mysite/logs state=directory owner=www-data group=www-data
-- name: Sync Django database.
-  shell: /usr/share/nginx/releases/{{ version }}/env/bin/python manage.py migrate --settings={{ django_settings_module }} --noinput chdir="/usr/share/nginx/releases/{{ version }}/mysite"
-  become_user: www-data
 - name: Link to new application
   file: dest=/usr/share/nginx/localhost src=/usr/share/nginx/releases/{{ version }} state=link
+- name: Sync Django database.
+  shell: /usr/share/nginx/localhost/env/bin/python manage.py migrate --settings={{ django_settings_module }} --noinput chdir="/usr/share/nginx/localhost/mysite"
+  become_user: www-data
+  tags:
+    - syncdb
 - name: Restart vassal
   file: path=/etc/uwsgi/configs/localhost.ini state=touch
 

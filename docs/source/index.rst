@@ -13,6 +13,7 @@ Contents:
 
    intro
    contributing
+   workflow
 
 
 Indices and tables

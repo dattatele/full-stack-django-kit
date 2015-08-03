@@ -38,8 +38,9 @@ def acceptance():
 
 
 @task()
-def integration():
+def integrations():
     """
-    PENDING: Run integration tests for specific environments
+    Run integration tests by environment via ./manage.py integration
     """
-    unit()
+    local("ansible webservers --sudo -i ansible/inventory/webservers/vagrant.ini -m shell -a \"../env/bin/python manage.py integration --settings=mysite.settings.vagrant chdir=/usr/share/nginx/localhost/mysite\"")
+

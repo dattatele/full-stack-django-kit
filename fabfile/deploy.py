@@ -12,6 +12,7 @@ def vagrant(ver='latest'):
     """
     (Default) Deploy latest version or specific tag to vagrant. Usage: deploy.vagrant:(latest|#.#.#)
     """
+    os.environ['ANSIBLE_HOST_KEY_CHECKING'] = 'False'
     if ver == 'latest':
         create_package()
         ver = get_git_version()

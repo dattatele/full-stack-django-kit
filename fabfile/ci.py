@@ -28,6 +28,12 @@ def install():
         local('npm install')
         local('bower install')
 
+@task()
+def test():
+    """
+    PENDING
+    """
+    local('env/bin/python setup.py test')
 
 @task()
 def build():

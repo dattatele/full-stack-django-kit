@@ -44,7 +44,6 @@ Vagrant Usage
 =============
 ::
 
-    export ANSIBLE_HOST_KEY_CHECKING=False # vagrant requirement only
     vagrant up
     vagrant reload
     fab deploy.vagrant

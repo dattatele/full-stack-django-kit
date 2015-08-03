@@ -25,3 +25,4 @@
   pip: name=fabric
 
 - include: nodejs.yml
+- include: mysql.yml

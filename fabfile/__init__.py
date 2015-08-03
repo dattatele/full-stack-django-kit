@@ -9,3 +9,4 @@ import build
 import test
 import docs
 import ci
+import manage

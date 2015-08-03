@@ -3,4 +3,4 @@ from django.contrib.auth.models import User
 
 
 class Customer(models.Model):
-    user = models.OneToOneField(User, editable=False)
+    name = models.CharField(max_length=100)

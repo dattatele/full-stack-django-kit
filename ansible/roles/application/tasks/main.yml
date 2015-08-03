@@ -3,5 +3,3 @@
 #- include: django.yml
 - include: application.yml
 - include: docs.yml
-  tags:
-      - docs

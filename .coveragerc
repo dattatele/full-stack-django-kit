@@ -1,0 +1,8 @@
+[run]
+include =
+    customers
+    mysite
+omit = tests
+
+[html]
+directory = reports

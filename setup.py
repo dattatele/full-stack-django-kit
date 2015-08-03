@@ -8,6 +8,12 @@ import mysite
 
 
 class PyTest(TestCommand):
+    user_options = [('pytest-args=', 'a', "Arguments to pass to py.test")]
+
+    def initialize_options(self):
+        TestCommand.initialize_options(self)
+        self.pytest_args = []
+
     def finalize_options(self):
         TestCommand.finalize_options(self)
         self.test_args = []
@@ -15,7 +21,7 @@ class PyTest(TestCommand):
 
     def run_tests(self):
         import pytest
-        errcode = pytest.main(self.test_args)
+        errcode = pytest.main(self.pytest_args)
         sys.exit(errcode)
 
 install_requirements = [
@@ -37,7 +43,11 @@ setup(
     author_email='bjvitrano@gmail.com',
     description='Django demo',
     include_package_data=True,
-    tests_require=['pytest', 'pytest-pep8', 'pytest-django', 'pytest-cov',
-                   'mock'],
+    tests_require=[
+        'pytest',
+        'pytest-pep8',
+        'pytest-django',
+        'pytest-cov'
+    ],
     zip_safe=False
 )
