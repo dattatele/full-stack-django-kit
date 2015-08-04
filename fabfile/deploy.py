@@ -7,6 +7,8 @@ from mysite.version import get_git_version
 from build import create_package
 import settings
 
+def get_build_files():
+    return glob('dist/*-%s*' % get_git_version())
 
 @task(default=True)
 def vagrant(ver='latest'):
@@ -52,8 +54,15 @@ def development(ver='latest'):
     (Default) Deploy latest version or specific tag to vagrant. Usage: deploy.vagrant:(latest|#.#.#)
     """
     os.environ['ANSIBLE_HOST_KEY_CHECKING'] = 'False'
+    env.set('settings', 'mysite.settings.vagrant')
     if ver == 'latest':
-        create_package()
+        settings = env.get('settings', 'mysite.settings.development')
+        # django settings module required for migrations and collectstatic
+        local('../env/bin/python manage.py makemigrations --settings={}'.format(settings))
+        local('../env/bin/python manage.py collectstatic --noinput --clear --settings={}'.format(settings))
+        local('../env/bin/python setup.py sdist bdist_wheel')
+        files = get_build_files()
+        local('mv %s ansible/roles/application/files/' % ' '.join(files))
         ver = get_git_version()
 
     packages = [f for f in os.listdir('ansible/roles/application/files') if re.match(r'\w+-%s(\.tar.gz|.*\.whl)' % ver.replace('.', '\.'), f)]
