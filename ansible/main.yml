@@ -1,9 +1,0 @@
----
-- name: My Application Web servers
-  hosts: webservers
-  roles:
-    - webserver
-- name: My Application Databases
-  hosts: databases
-  roles:
-    - database

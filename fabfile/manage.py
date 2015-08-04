@@ -49,4 +49,9 @@ def generate():
     """
     local("ansible webservers --sudo -i ansible/inventory/webservers/vagrant.ini -m shell -a \"../env/bin/python manage.py generate --settings=mysite.settings.vagrant chdir=/usr/share/nginx/localhost/mysite\"")
 
+@task()
+def upload_vagrant_keys_to_ci():
+    local('ansible ciservers --sudo -i ansible/inventory/vagrant/ci.ini -m copy -a "src=.vagrant/machines/web/virtualbox/private_key dest=/var/go/id_rsa_web"')
+    local('ansible ciservers --sudo -i ansible/inventory/vagrant/ci.ini -m copy -a "src=.vagrant/machines/db/virtualbox/private_key dest=/var/go/id_rsa_db"')
+
 

@@ -18,7 +18,7 @@ Vagrant.configure(2) do |config|
 
     web.vm.provision "ansible" do |ansible|
       ansible.sudo = true
-      ansible.inventory_path = "ansible/inventory/webservers/vagrant.ini"
+      ansible.inventory_path = "ansible/inventory/vagrant/web.ini"
       ansible.playbook = "ansible/webservers.yml"
       ansible.verbose = "v"
       ansible.limit = "webservers"
@@ -37,7 +37,7 @@ Vagrant.configure(2) do |config|
 
     db.vm.provision "ansible" do |ansible|
        ansible.sudo = true
-       ansible.inventory_path = "ansible/inventory/databases/vagrant.ini"
+       ansible.inventory_path = "ansible/inventory/vagrant/db.ini"
        ansible.playbook = "ansible/dbservers.yml"
        ansible.limit = "databases"
        ansible.verbose = "v"
@@ -55,7 +55,7 @@ Vagrant.configure(2) do |config|
 
     ci.vm.provision "ansible" do |ansible|
          ansible.sudo = true
-         ansible.inventory_path = "ansible/inventory/ciservers/vagrant.ini"
+         ansible.inventory_path = "ansible/inventory/vagrant/ci.ini"
          ansible.playbook = "ansible/ciservers.yml"
          ansible.limit = "ciservers"
          ansible.verbose = "v"

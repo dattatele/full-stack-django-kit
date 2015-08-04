@@ -1,5 +1,5 @@
 ---
-- name: My Application Web servers
+- name: My Application Database servers
   hosts: databases
   roles:
     - database

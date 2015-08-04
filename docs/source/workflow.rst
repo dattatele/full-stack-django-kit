@@ -50,3 +50,10 @@ Recognized Markers
 Production
 ----------
 Configuration python manage.py check --deploy --settings=mysite.settings.production
+
+
+Dev Machine -> VagrantWeb
+Dev Machine -> VagrantDb
+Dev Machine -> VagrantCI
+VagrantCI -> VagrantWeb
+VagrantCI -> VagrantDb
