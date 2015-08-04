@@ -74,7 +74,7 @@ def development(ver='latest'):
         print 'failed to find packages for version: %s' % ver
         exit(1)
     # Due to how ansible resolves hosts, we cannot reuse a single vagrant.ini
-    local('ansible-playbook -i %s --extra-vars "version=%s" --sudo ansible/deploy.yml' %
+    local('env/bin/ansible-playbook -i %s --extra-vars "version=%s" --sudo ansible/deploy.yml' %
           ('ansible/inventory/development.ini', ver))
 
 @task()
