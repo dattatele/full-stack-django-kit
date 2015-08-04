@@ -56,7 +56,11 @@ def development(ver='latest'):
     os.environ['ANSIBLE_HOST_KEY_CHECKING'] = 'False'
     if ver == 'latest':
         settings = 'mysite.settings.vagrant'
-        # django settings module required for migrations and collectstatic
+
+        try:
+            os.makedirs('public')
+        except OSError:
+            pass
         local('env/bin/python manage.py collectstatic --noinput --clear --settings={}'.format(settings))
         local('env/bin/python setup.py sdist bdist_wheel')
         files = get_build_files()
