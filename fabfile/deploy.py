@@ -57,9 +57,9 @@ def development(ver='latest'):
     if ver == 'latest':
         settings = 'mysite.settings.vagrant'
         # django settings module required for migrations and collectstatic
-        local('../env/bin/python manage.py makemigrations --settings={}'.format(settings))
-        local('../env/bin/python manage.py collectstatic --noinput --clear --settings={}'.format(settings))
-        local('../env/bin/python setup.py sdist bdist_wheel')
+        local('env/bin/python manage.py makemigrations --settings={}'.format(settings))
+        local('env/bin/python manage.py collectstatic --noinput --clear --settings={}'.format(settings))
+        local('env/bin/python setup.py sdist bdist_wheel')
         files = get_build_files()
         local('mv %s ansible/roles/application/files/' % ' '.join(files))
         ver = get_git_version()
