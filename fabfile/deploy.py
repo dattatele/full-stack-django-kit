@@ -54,9 +54,8 @@ def development(ver='latest'):
     (Default) Deploy latest version or specific tag to vagrant. Usage: deploy.vagrant:(latest|#.#.#)
     """
     os.environ['ANSIBLE_HOST_KEY_CHECKING'] = 'False'
-    env.set('settings', 'mysite.settings.vagrant')
     if ver == 'latest':
-        settings = env.get('settings', 'mysite.settings.development')
+        settings = 'mysite.settings.vagrant'
         # django settings module required for migrations and collectstatic
         local('../env/bin/python manage.py makemigrations --settings={}'.format(settings))
         local('../env/bin/python manage.py collectstatic --noinput --clear --settings={}'.format(settings))
