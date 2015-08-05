@@ -35,8 +35,24 @@
                     <job name="Build">
                         <tasks>
                             <exec command="fab">
-                                <arg>deploy.development</arg>
+                                <arg>build</arg>
+                                <arg>--set</arg>
+                                <arg>python_executable=env/bin/python,settings=mysite.settings.vagrant</arg>
                                 <runif status="passed" />
+                            </exec>
+                        </tasks>
+                        <artifacts>
+                            <artifact src="dist" dest="dist" />
+                        </artifacts>
+                    </job>
+                </jobs>
+            </stage>
+            <stage name="Deploy">
+                <jobs>
+                    <job name="staging">
+                        <tasks>
+                            <exec command="fab">
+                                <arg>deploy.development</arg>
                             </exec>
                         </tasks>
                     </job>
@@ -45,11 +61,11 @@
         </pipeline>
         <pipeline name="Test">
             <materials>
-                <pipeline pipelineName="Prepare" stageName="CreateArtifact" materialName="Artifact" />
+                <pipeline pipelineName="Prepare" stageName="Deploy" materialName="Artifact" />
             </materials>
-            <stage name="UnitTests">
+            <stage name="Development">
                 <jobs>
-                    <job name="Features">
+                    <job name="functional">
                         <tasks>
                             <exec command="fab">
                                 <arg>--list</arg>
