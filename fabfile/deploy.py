@@ -7,6 +7,7 @@ from mysite.version import get_git_version
 from build import create_package
 import settings
 
+
 def get_build_files():
     return glob('dist/*-%s*' % get_git_version())
 
@@ -55,7 +56,7 @@ def development(ver='latest'):
     """
     os.environ['ANSIBLE_HOST_KEY_CHECKING'] = 'False'
     if ver == 'latest':
-        settings = 'mysite.settings.vagrant'
+        django_settings_module = 'mysite.settings.vagrant'
 
         try:
             os.makedirs('public')
@@ -63,7 +64,7 @@ def development(ver='latest'):
             pass
         with lcd('styleguide'):
             local('gulp build')
-        local('env/bin/python manage.py collectstatic --noinput --settings={}'.format(settings))
+        local('env/bin/python manage.py collectstatic --noinput --settings={}'.format(django_settings_module))
         local('env/bin/python setup.py sdist bdist_wheel')
         files = get_build_files()
         local('mv %s ansible/roles/application/files/' % ' '.join(files))

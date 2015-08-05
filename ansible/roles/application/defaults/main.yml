@@ -1,0 +1,3 @@
+---
+project_name: portal
+django_settings_module: portal.settings

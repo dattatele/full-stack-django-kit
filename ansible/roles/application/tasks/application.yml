@@ -1,29 +1,40 @@
 ---
 - name: Create new release directory
   file: path=/usr/share/nginx/releases/{{ version }} state=directory owner=www-data group=www-data
+
 - name: Upload source package
   unarchive: src=mysite-{{ version }}.tar.gz dest=/usr/share/nginx/releases/{{ version }}
+
 - name: Upload wheel package
   copy: src=mysite-{{ version }}-py27-none-any.whl dest=/usr/share/nginx/releases/{{ version }}
+
 - name: Remove existing source if present
   file: path=/usr/share/nginx/releases/{{ version }}/mysite state=absent
+
 - name: Normalize source directory after unarchive
   command: mv /usr/share/nginx/releases/{{ version }}/mysite-{{ version }} /usr/share/nginx/releases/{{ version }}/mysite
+
 - name: Update permissions of the application
   file: path=/usr/share/nginx/releases/{{ version }}/mysite state=directory owner=www-data group=www-data
+
 - name: Create virtual environment
   pip: virtualenv=/usr/share/nginx/releases/{{ version }}/env name=django
+
 - name: Install wheel package
   pip: chdir=/usr/share/nginx/releases/{{ version }} virtualenv=/usr/share/nginx/releases/{{ version }}/env name=mysite-{{ version }}-py27-none-any.whl
+
 - name: Update log application log permissions
   file: path=/usr/share/nginx/releases/{{ version }}/mysite/logs state=directory owner=www-data group=www-data
-- name: Link to new application
-  file: dest=/usr/share/nginx/localhost src=/usr/share/nginx/releases/{{ version }} state=link
+
 - name: Sync Django database.
   shell: /usr/share/nginx/localhost/env/bin/python manage.py migrate --settings={{ django_settings_module }} --noinput chdir="/usr/share/nginx/localhost/mysite"
   become_user: www-data
   tags:
     - syncdb
+
+- name: Link to new application
+  file: dest=/usr/share/nginx/localhost src=/usr/share/nginx/releases/{{ version }} state=link
+
 - name: Restart vassal
   file: path=/etc/uwsgi/configs/localhost.ini state=touch
 
