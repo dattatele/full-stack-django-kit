@@ -6,7 +6,7 @@
             <materials>
                 <git url="/home/git/mysite.git" branch="development" />
             </materials>
-            <stage name="Acceptence">
+            <stage name="Verify">
                 <jobs>
                     <job name="verify">
                         <tasks>
@@ -18,12 +18,41 @@
                     </job>
                 </jobs>
             </stage>
-            <stage name="Build">
+            <stage name="Install">
                 <jobs>
                     <job name="package">
                         <tasks>
                             <exec command="fab">
                                 <arg>ci.install</arg>
+                                <runif status="passed" />
+                            </exec>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+            <stage name="CreateArtifact">
+                <jobs>
+                    <job name="Build">
+                        <tasks>
+                            <exec command="fab">
+                                <arg>deploy.development</arg>
+                                <runif status="passed" />
+                            </exec>
+                        </tasks>
+                    </job>
+                </jobs>
+            </stage>
+        </pipeline>
+        <pipeline name="Test">
+            <materials>
+                <pipeline pipelineName="Prepare" stageName="CreateArtifact" materialName="Artifact" />
+            </materials>
+            <stage name="UnitTests">
+                <jobs>
+                    <job name="Features">
+                        <tasks>
+                            <exec command="fab">
+                                <arg>--list</arg>
                                 <runif status="passed" />
                             </exec>
                         </tasks>
