@@ -13,7 +13,7 @@ def create_package():
     settings = env.get('settings', 'mysite.settings.development')
     python_executable = env.get('python_executable', 'python')
     # django settings module required for migrations and collectstatic
-    local('{} manage.py makemigrations --settings={}'.format(python_executable, settings))
+    # remove makemigrations
     local('{} manage.py collectstatic --noinput --clear --settings={}'.format(python_executable, settings))
     local('{} setup.py sdist bdist_wheel'.format(python_executable))
     files = get_build_files()
