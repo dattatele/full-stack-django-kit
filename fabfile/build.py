@@ -1,4 +1,5 @@
 from glob import glob
+import sys
 from fabric.api import task, local, run, env
 from fabric.context_managers import lcd
 from mysite.version import get_git_version
@@ -11,9 +12,9 @@ def get_build_files():
 def create_package():
     settings = env.get('settings', 'mysite.settings.development')
     # django settings module required for migrations and collectstatic
-    local('python manage.py makemigrations --settings={}'.format(settings))
-    local('python manage.py collectstatic --noinput --clear --settings={}'.format(settings))
-    local('python setup.py sdist bdist_wheel')
+    local('{} manage.py makemigrations --settings={}'.format(sys.executable, settings))
+    local('{} manage.py collectstatic --noinput --clear --settings={}'.format(sys.executable, settings))
+    local('{} setup.py sdist bdist_wheel'.format(sys.executable))
     files = get_build_files()
     local('mv %s ansible/roles/application/files/' % ' '.join(files))
 
