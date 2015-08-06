@@ -1,31 +1,23 @@
+import os
 from glob import glob
-import sys
 from fabric.api import task, local, run, env
 from fabric.context_managers import lcd
-from mysite.version import get_git_version
-
-
-def get_build_files():
-    return glob('dist/*-%s*' % get_git_version())
-
-
-def create_package():
-    settings = env.get('settings', 'mysite.settings.development')
-    python_executable = env.get('python_executable', 'python')
-    # django settings module required for migrations and collectstatic
-    # remove makemigrations
-    local('{} manage.py collectstatic --noinput --clear --settings={}'.format(python_executable, settings))
-    local('{} setup.py sdist bdist_wheel'.format(python_executable))
-    files = get_build_files()
-    local('mv %s ansible/roles/application/files/' % ' '.join(files))
+import settings
 
 
 @task(default=True)
 def package():
     """
-    (Default) Peforms makemigrations, collectstatic, and sdist and bdist_wheel. fab build.package --set settings=dmysite.settings.development
+    (Default) Peforms gulp build, collectstatic, and sdist and bdist_wheel. fab build --set python=env/bin/python,settings=mysite.settings.development,environment=ci
     """
-    create_package()
+    try:
+        os.makedirs('public')
+    except:
+        pass
+    clean()
+    styleguide()
+    local('{0} manage.py collectstatic --noinput --clear --settings={1}'.format(settings.bin['python'], settings.django['settings']))
+    local('{0} setup.py sdist bdist_wheel'.format(settings.bin['python']))
 
 
 @task()
@@ -68,4 +60,13 @@ def styleguide():
     Run gulp build task in styleguide for creating minified CSS and JS
     """
     with lcd('styleguide'):
-        local('gulp build')
+        local('{0} build'.format(settings.bin['gulp']))
+
+@task()
+def watch():
+    """
+    Run gulp build task in styleguide for creating minified CSS and JS
+    """
+    with lcd('styleguide'):
+        local('{0} watch'.format(settings.bin['gulp']))
+

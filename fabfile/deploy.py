@@ -1,99 +1,59 @@
 import os
 import re
 from glob import glob
+import shutil
 from fabric.api import task, local, run, env
 from fabric.context_managers import lcd
-from mysite.version import get_git_version
-from build import create_package
 import settings
 
 
-def get_build_files():
-    return glob('dist/*-%s*' % get_git_version())
+@task()
+def test():
+    print settings.bin
+
 
 @task(default=True)
-def vagrant(ver='latest'):
+def application():
     """
-    (Default) Deploy latest version or specific tag to vagrant. Usage: deploy.vagrant:(latest|#.#.#)
+    (Default) Deploy latest version or specific tag to vagrant. Usage: deploy --set tag=(latest|#.#.#)
     """
-    os.environ['ANSIBLE_HOST_KEY_CHECKING'] = 'False'
-    if ver == 'latest':
-        create_package()
-        ver = get_git_version()
+    builds = [f for f in os.listdir('dist')
+                if re.match(r'\w+-%s(\.tar.gz|.*\.whl)' % settings.version.replace('.', '\.'), f)]
+    artifacts = [f for f in os.listdir('ansible/roles/application/files')
+                if re.match(r'\w+-%s(\.tar.gz|.*\.whl)' % settings.version.replace('.', '\.'), f)]
+    if not builds and not artifacts:
+        print 'please build and artifacts for deployment'
+        exit(1)
 
-    packages = [f for f in os.listdir('ansible/roles/application/files') if re.match(r'\w+-%s(\.tar.gz|.*\.whl)' % ver.replace('.', '\.'), f)]
-    if len(packages) != 2:
-        print 'failed to find packages for version: %s' % ver
+    if not artifacts and builds:
+        for package in builds:
+            shutil.move(os.path.join('dist', package), os.path.join('ansible/roles/application/files', os.path.basename(package)))
+        artifacts = builds
+
+    # all we need are artifacts
+    if len(artifacts) != 2:
+        print 'failed to find wheel and tar packages for version: %s' % settings.version
         exit(1)
     # Due to how ansible resolves hosts, we cannot reuse a single vagrant.ini
-    local('ansible-playbook -i %s --extra-vars "version=%s" --sudo ansible/deploy.yml' %
-          (settings.vagrant['inventory']['web'], ver))
-
-
-@task()
-def production(ver='latest'):
-    """
-    Deploy latest version or specific tag to production. Usage: deploy.production:(latest|#.#.#)
-    """
-    if 'settings' not in env:
-        env['settings'] = 'mysite.settings.production'
-
-    if ver == 'latest':
-        create_package()
-        ver = get_git_version()
-
-    packages = [f for f in os.listdir('ansible/roles/application/files') if re.match(r'\w+-%s(\.tar.gz|.*\.whl)' % ver.replace('.', '\.'), f)]
-    if len(packages) != 2:
-        print 'failed to find packages for version: %s' % ver
-        exit(1)
-
-    local('ansible-playbook ansible/deploy.yml -i ansible/inventory/production.ini --list-hosts')
-
-@task()
-def development(ver='latest'):
-    """
-    (Default) Deploy latest version or specific tag to vagrant. Usage: deploy.vagrant:(latest|#.#.#)
-    """
-    os.environ['ANSIBLE_HOST_KEY_CHECKING'] = 'False'
-    if ver == 'latest':
-        django_settings_module = 'mysite.settings.vagrant'
-
-        try:
-            os.makedirs('public')
-        except OSError:
-            pass
-        with lcd('styleguide'):
-            local('gulp build')
-        local('env/bin/python manage.py collectstatic --noinput --settings={}'.format(django_settings_module))
-        local('env/bin/python setup.py sdist bdist_wheel')
-        files = get_build_files()
-        local('mv %s ansible/roles/application/files/' % ' '.join(files))
-        ver = get_git_version()
-
-    packages = [f for f in os.listdir('ansible/roles/application/files') if re.match(r'\w+-%s(\.tar.gz|.*\.whl)' % ver.replace('.', '\.'), f)]
-    if len(packages) != 2:
-        print 'failed to find packages for version: %s' % ver
-        exit(1)
-    # Due to how ansible resolves hosts, we cannot reuse a single vagrant.ini
-    local('env/bin/ansible-playbook -i %s --extra-vars "version=%s" --sudo ansible/deploy.yml' %
-          ('ansible/inventory/development.ini', ver))
+    local('ansible-playbook -i %s --extra-vars "version=%s" -v --sudo ansible/deploy.yml' %
+          (settings.inventory, settings.version))
 
 @task()
 def rollback():
     """
     Rollback to previous deployed version of the app
     """
-    local('ansible-playbook -i %s -v --sudo ansible/rollback.yml' % settings.vagrant['inventory']['web'])
+    local('ansible-playbook -i %s -v --sudo ansible/rollback.yml' % settings.inventory)
 
 
 @task()
-def provision(env):
+def provision():
     """
     Run ansible playbook for webservers/databases by env. Usage: deploy.provision:(vagrant|prod)
     """
-    if env == 'vagrant':
+    if settings.environment == 'vagrant':
         # vagrant ansible playbook for reference, use vagrant provision
-        local('ansible-playbook -i %s -v --sudo ansible/webservers.yml' % settings.vagrant['inventory']['web'])
-        local('ansible-playbook -i %s -v --sudo ansible/dbservers.yml' % settings.vagrant['inventory']['db'])
-    elif env == 'prod':
-        local('ansible-playbook ansible/main.yml -i ansible/inventory/production.ini --list-hosts')
+        local('ansible-playbook -i ansible/inventory/vagrant/web.ini --sudo --limit webservers ansible/webservers.yml')
+        local('ansible-playbook -i ansible/inventory/vagrant/db.ini -v --sudo ansible/dbservers.yml')
+    else:
+        local('ansible-playbook ansible/main.yml -i {0} --list-hosts'.format(settings.inventory))

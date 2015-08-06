@@ -11,15 +11,23 @@ def all():
 
 
 @task()
-def ping(env):
+def verify():
+    local('npm --version')
+    local('gulp --version')
+    local('bower --version')
+    if settings.environment == 'ci':
+        local('virtualenv --version')
+
+@task()
+def ping():
     """
     Ping servers with ansible Usage: fab test.ping:(vagrant|env)
     """
-    if env == 'vagrant':
+    if settings.environment == 'vagrant':
         local('ansible webservers -i %s -v -m ping' %
-              (settings.vagrant['inventory']['web']))
+              ('ansible/inventory/vagrant/web.ini'))
         local('ansible databases -i %s -v -m ping' %
-              (settings.vagrant['inventory']['db']))
+              ('ansible/inventory/vagrant/db.ini'))
     else:
         print 'Not yet created for production env'
 
@@ -47,5 +55,5 @@ def integrations():
     """
     command = '../env/bin/python manage.py integration --settings=mysite.settings.vagrant'
     local("ansible webservers --sudo -i %s -m shell -a \"%s chdir=/usr/share/nginx/localhost/mysite\"" %
-          (settings.vagrant['inventory']['web'], command))
+          (settings.inventory, command))
 
