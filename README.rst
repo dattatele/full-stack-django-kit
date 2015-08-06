@@ -1,3 +1,6 @@
+.. image:: https://travis-ci.org/brady-vitrano/django-starter-project.svg?branch=master
+    :target: https://travis-ci.org/brady-vitrano/django-starter-project
+
 About
 =====
 This my attempt at creating and defining best practices for managing a full stack Django application. It focuses on
