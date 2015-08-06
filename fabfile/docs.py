@@ -9,8 +9,6 @@ def build():
     (Default) Build Sphinx HTML documentation
     """
     with lcd('docs'):
-        if settings.environment == 'ci':
-            local('source env/bin/activate')
         local('make html')
 
 
