@@ -96,6 +96,9 @@ Notes
 * ``python setup.py sdist``
 * ``ansible-playbook -i ansible/inventory/vagrant --private-key=.vagrant/machines/default/virtualbox/private_key -u vagrant --sudo ansible/deploy.yml``
 
+Troubleshooting
+===============
+*  ``Library not loaded: libssl.1.0.0.dylib`` - Try ``brew install --upgrade openssl && brew unlink openssl && brew link openssl --force``
 
 .. _anaconda: http://continuum.io/downloads
 .. _styleguide: styleguide/README.rst

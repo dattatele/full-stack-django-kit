@@ -38,7 +38,7 @@ def bump(component):
     if component not in ['major', 'minor', 'patch']:
         print 'invalid component name valid options: [major|minor|patch]'
         exit(1)
-    value = get_git_version()
+    value = settings.version
     components = value.split('.')[:3]
     if len(components) != 3:
         print 'invalid version'
