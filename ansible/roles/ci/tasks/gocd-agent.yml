@@ -24,5 +24,23 @@
 - name: install fabric
   pip: name=fabric
 
+- name: install ansible
+  pip: name=ansible
+
+- name: create .ssh directory
+  file: path=/var/go/.ssh owner=go group=go state=directory mode=0700
+
+- name: upload private key to ci server for github.com access
+  copy: src=~/.ssh/id_rsa dest=/var/go/.ssh/id_rsa.github
+
+- name: update ssh config to use users github private key
+  copy: src=var/go/.ssh/config dest=/var/go/.ssh/config
+
+- name: add known hosts for github
+  copy: src=var/go/.ssh/known_hosts dest=/var/go/.ssh/known_hosts
+
+- name: update private key permissions
+  file: path=/var/go/.ssh/id_rsa.github owner=go group=go mode=0600 state=file
+
 - include: nodejs.yml
 - include: mysql.yml

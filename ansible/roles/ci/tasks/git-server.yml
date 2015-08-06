@@ -7,17 +7,16 @@
 
 - name: check for repo
   stat: path=/home/git/mysite.git
-  register: repostats
+  register: repo
 
-- name: create bare repo
+- name: Create bare repo
   shell: git init --bare /home/git/mysite.git
-  when: repostats.stat.exists == false
+  when: repo.stat.exists == False
 
 - name: public key
   authorized_key: user=git key="{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
-  # git remote add ci ssh://git@127.0.0.1:2201/~/mysite.git
+  # git remote add ci ssh://git@127.0.0.1:2201/~/batman.git
   # git push ci master
-  # git push ci --tags
 
 - name: verify permissions
   file: path=/home/git/mysite.git owner=git group=git recurse=yes

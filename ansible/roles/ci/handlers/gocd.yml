@@ -7,5 +7,3 @@
   service: name=go-agent state=started
 - name: restart go agent
   service: name=go-agent state=restarted
-
-

@@ -26,8 +26,6 @@
   copy: src=rc.local dest=/etc/rc.local
   notify:
     - restart machine
-- name: Update pip
-  pip: name=pip version=7.1.0
 - name: Install virtualenv
   pip: name=virtualenv
 - name: Install MariaDB Client

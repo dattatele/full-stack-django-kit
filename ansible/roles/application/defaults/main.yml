@@ -1,3 +1,3 @@
 ---
-project_name: portal
-django_settings_module: portal.settings
+project_name: mysite
+django_settings_module: mysite.settings

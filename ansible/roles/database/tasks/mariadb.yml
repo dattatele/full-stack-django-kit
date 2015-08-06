@@ -24,4 +24,3 @@
 
 - name: Create a database user
   mysql_user: name=demo password=demo priv=*.*:ALL host=192.168.10.10 state=present
-
