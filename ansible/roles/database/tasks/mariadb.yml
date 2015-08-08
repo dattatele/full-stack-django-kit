@@ -20,7 +20,25 @@
   apt: name=python-mysqldb state=present
 
 - name: Create a new database
-  mysql_db: name=demo state=present collation=utf8_general_ci
+  mysql_db: name={{ database_name }} state=present collation=utf8_general_ci
 
-- name: Create a database user
+- name: Create a MySQL user for Vagrant
   mysql_user: name=demo password=demo priv=*.*:ALL host=192.168.10.10 state=present
+  when: vagrant
+
+- name: Create MySQL users (excludes Vagrant)
+  mysql_user: name=demo password=demo  priv=*.*:ALL host={{ hostvars[item]['ansible_eth0']['ipv4']['address'] }} state=present
+  with_items: groups['webservers']
+  when: not vagrant
+
+- name: Install ufw
+  apt: name=ufw
+
+- name: Allow ssh through firewall
+  ufw: proto=tcp port=22 rule=allow
+
+- name: Set ufw policy
+  ufw: state=enabled direction=incoming policy=deny
+
+- name: Allow mysql firewall
+  ufw: proto=tcp port=3306 rule=allow

@@ -28,7 +28,7 @@ bin = {
 defaults = {
     'vagrant': {
         'ansible': {
-            'inventory': 'ansible/inventory/vagrant/web.ini'
+            'inventory': 'ansible/inventory/vagrant.ini'
         },
         'django': {
             'settings': 'mysite.settings.vagrant'
