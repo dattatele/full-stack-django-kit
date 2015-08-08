@@ -1,10 +1,2 @@
 ---
 database_name: demo
-database_users:
-  - name: demo
-    password: demo
-    hosts:
-      - '192.168.10.10'
-      - 'localhost'
-    privs:
-      - "*.*:ALL"
