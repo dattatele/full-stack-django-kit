@@ -1,5 +1,4 @@
 from mysite.settings import *
-import uuid
 
 DATABASES = {
     'default': {
@@ -9,7 +8,7 @@ DATABASES = {
 }
 
 # temporary key generation
-SECRET_KEY = str(uuid.uuid4()) + str(uuid.uuid4())
+SECRET_KEY = get_env_variable('DJANGO_SECRET_KEY')
 DEBUG = False
 ALLOWED_HOSTS = ['mysite.com']
 # Change me if using S3 or Cloud Files

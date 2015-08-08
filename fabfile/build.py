@@ -16,7 +16,7 @@ def package():
         pass
     clean()
     styleguide()
-    local('{0} manage.py collectstatic --noinput --clear --settings={1}'.format(settings.bin['python'], settings.django['settings']))
+    local('{0} manage.py collectstatic --noinput --clear'.format(settings.bin['python']))
     local('{0} setup.py sdist bdist_wheel'.format(settings.bin['python']))
 
 

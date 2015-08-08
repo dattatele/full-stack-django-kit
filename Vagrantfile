@@ -11,7 +11,6 @@ Vagrant.configure(2) do |config|
   config.vm.define "web", primary: true do |web|
     web.vm.box = "ubuntu/trusty64"
 
-    web.vm.network "forwarded_port", guest: 22, host: 2222, id: "ssh"
     web.vm.network "forwarded_port", guest: 443, host: 8443
     web.vm.network "forwarded_port", guest: 80, host: 8080
     web.vm.network "private_network", ip: "192.168.10.10"
@@ -32,7 +31,6 @@ Vagrant.configure(2) do |config|
 
   config.vm.define "db" do |db|
     db.vm.box = "ubuntu/trusty64"
-    db.vm.network "forwarded_port", guest: 22, host: 2200, id: "ssh"
     db.vm.network "private_network", ip: "192.168.10.11"
 
     db.vm.provision "ansible" do |ansible|
@@ -47,7 +45,6 @@ Vagrant.configure(2) do |config|
   config.vm.define "ci" do |ci|
     ci.vm.box = "ubuntu/trusty64"
     ci.vm.network "forwarded_port", guest: 8153, host: 8153
-    ci.vm.network "forwarded_port", guest: 22, host: 2201, id: "ssh"
     ci.vm.network "private_network", ip: "192.168.10.12"
     ci.vm.provider "virtualbox" do |vb|
         vb.customize ["modifyvm", :id, "--memory", "2048"]

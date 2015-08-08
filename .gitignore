@@ -63,3 +63,4 @@ public
 **/*.sqlite3
 RELEASE-VERSION
 .vagrant
+credentials.yml

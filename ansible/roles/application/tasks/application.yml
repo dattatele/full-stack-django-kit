@@ -31,6 +31,8 @@
 
 - name: Sync Django database.
   shell: /usr/share/nginx/localhost/env/bin/python manage.py migrate --settings={{ django_settings_module }} --noinput chdir="/usr/share/nginx/localhost/{{ project_name}}"
+  environment:
+    DJANGO_SECRET_KEY: TEMPORARY_KEY_FOR_MIGRATION
   become_user: www-data
   tags:
     - syncdb

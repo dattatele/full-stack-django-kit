@@ -1,5 +1,7 @@
 from .development import *
 
+SECRET_KEY = get_env_variable('DJANGO_SECRET_KEY')
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',

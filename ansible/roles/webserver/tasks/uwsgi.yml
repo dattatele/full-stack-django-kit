@@ -1,13 +1,16 @@
 ---
 - include_vars: credentials.yml
+
 - name: Install uWSGI Requirements
   apt: pkg="{{ item }}" state=installed update_cache=true
   with_items:
     - build-essential
     - python-dev
     - python-pip
+
 - name: Install uWSGI
   pip: name='http://projects.unbit.it/downloads/uwsgi-lts.tar.gz'
+
 - name: Create uWSGI directories
   file: path="{{ item }}" state=directory owner=www-data group=www-data mode=0750
   with_items:
@@ -15,20 +18,26 @@
     - /etc/uwsgi/configs
     - /etc/uwsgi/sockets
     - /var/log/uwsgi
+
 # TODO: Move to application as a requirement
 - name: Add apps uWSGI file to configs
   template: src=uwsgi/configs/localhost.ini dest=/etc/uwsgi/configs/localhost.ini mode=0750 owner=www-data group=www-data
+
 - name: Register localhost.ini as a vassal with emperor
   file: src=/etc/uwsgi/configs/localhost.ini dest=/etc/uwsgi/vassals/localhost.ini state=link owner=www-data group=www-data
   notify:
     - restart nginx
+
 - name: Add uwsgi to rc.local
   copy: src=rc.local dest=/etc/rc.local
   notify:
     - restart machine
+
 - name: Install virtualenv
   pip: name=virtualenv
+
 - name: Install MariaDB Client
   apt: pkg=libmariadbclient-dev state=installed update_cache=true
+
 - name: Install MySQL Headers
   apt: pkg=libmysqlclient-dev state=installed update_cache=true
