@@ -15,6 +15,7 @@ Requirements
 * Wheel - For packaging dependencies
 * Ansible - Config managment and deployment
 * ``Vagrant >= 1.7.4``
+* ``VirtualBox >= 5.0``
 * MySQL client
 * NodeJS
 * Bower
