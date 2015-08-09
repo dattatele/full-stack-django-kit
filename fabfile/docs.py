@@ -23,4 +23,3 @@ def deploy():
         local("rsync -avz --rsync-path='sudo rsync' -e 'ssh -p 2222 -i .vagrant/machines/web/virtualbox/private_key -o StrictHostKeyChecking=no' docs/build/html/ %s@%s:%s " % ('vagrant', 'localhost', destination))
     elif settings.environment == 'ci':
         local("rsync -avz --rsync-path='sudo rsync' -e 'ssh -p 2222 -i /var/go/id_rsa_web -o StrictHostKeyChecking=no' docs/build/html/ %s@%s:%s " % ('vagrant', '192.168.10.10', destination))
-

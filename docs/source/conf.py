@@ -29,7 +29,6 @@ import alabaster
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = []
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -100,7 +99,14 @@ pygments_style = 'sphinx'
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 html_theme_path = [alabaster.get_path()]
-extensions = ['alabaster']
+extensions = [
+    'alabaster',
+    #'sphinx.ext.autodoc',
+    'sphinx.ext.todo'
+
+]
+todo_include_todos=True
+
 html_theme = 'alabaster'
 html_sidebars = {
     '**': [
@@ -269,3 +275,4 @@ texinfo_documents = [
 
 # If true, do not generate a @detailmenu in the "Top" node's menu.
 #texinfo_no_detailmenu = False
+

@@ -56,6 +56,8 @@ docs/build/
 # PyBuilder
 target/
 
+tmp/
+
 *.tar.gz
 *.whl
 .idea

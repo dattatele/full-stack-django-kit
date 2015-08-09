@@ -5,6 +5,7 @@ STATICFILES_DIRS += (
     os.path.join(BASE_DIR, 'styleguide', 'dist'),
 )
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Create log directory if not already found
 try:
@@ -30,3 +31,4 @@ LOGGING = {
             },
         },
     }
+

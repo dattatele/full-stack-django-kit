@@ -1,4 +1,4 @@
-.. Browler documentation master file, created by
+.. MySite documentation master file, created by
    sphinx-quickstart on Fri Feb 27 19:42:43 2015.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
@@ -15,6 +15,9 @@ Contents:
    contributing
    workflow
    translations
+   email
+   testing
+   incubation
 
 
 Indices and tables
