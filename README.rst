@@ -50,7 +50,7 @@ Additionally, you can fire up vagrant machines to test deployments and continuou
 
 
 **Warning:** Tested against ``Vagrant 1.7.4``. If you are using older version of Vagrant and you want to keep using it,
-you will need to change Vagrant's private key reference in ``ansible/inventory/vagrant/webservers.ini`` to use ``~/.vagrant.d/insecure_private_key``
+you will need to change Vagrant's private key reference in ``ansible/inventory/vagrant.ini`` to use ``~/.vagrant.d/insecure_private_key``
 
 CI Pipeline
 -----------
@@ -76,10 +76,8 @@ Vagrant Network Requirements
 I am using Vagrants multiple machine for this application. However, Batman isn't using the MySQL db yet. This will be
 added in future.
 
-* web - host ports 2222, 8443, 8080
-* db - host ports 2200
-* ci - host ports 2201, 8153
-
+* web - 8443, 8080
+* ci - 8153
 
 Style Guide
 ===========
@@ -88,8 +86,7 @@ See styleguide_
 
 Notable Changes
 ===============
-* Store application requirements in ``setup.py``
-* Added ``fabfile`` module for task manager to be used in CI scripts
+* See fabfile tasks ``fab --list``
 * Added ``ansible`` directory for deployment scripts and ``Vagrant`` provisioning
 * Moved ``settings.py`` into ``mysite/settings/__init__.py`` and added additional environments
 * Set ``DJANGO_SETTINGS_MODULE=mysite.settings.development`` in ``uwsgi.py``
@@ -99,6 +96,7 @@ Notes
 * ``git archive --format=tar -o build/archive.tar 1.2.2``
 * ``python setup.py sdist``
 * ``ansible-playbook -i ansible/inventory/vagrant --private-key=.vagrant/machines/default/virtualbox/private_key -u vagrant --sudo ansible/deploy.yml``
+* Build docs for more information
 
 Troubleshooting
 ===============
