@@ -5,4 +5,6 @@ from .models import Customer
 def home(request):
 
     customers = Customer.objects.all()
-    return render(request, 'customers/index.html', {"customers": customers})
+    return render(request, 'customers/index.html', {
+        "customers": customers
+    })
