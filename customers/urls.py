@@ -17,5 +17,8 @@ from django.conf.urls import include, url
 from . import views
 
 urlpatterns = [
-    url(r'^$', views.home, name='customers-home')
+    url(r'^$', views.home, name='customers-home'),
+    url(r'^create$', views.create, name='customers-create'),
+    url(r'^edit/(?P<pk>[0-9]+)', views.edit, name='customers-edit'),
+    url(r'^delete/(?P<pk>[0-9]+)', views.delete, name='customers-delete')
 ]

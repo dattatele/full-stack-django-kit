@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-09 13:41-0500\n"
+"POT-Creation-Date: 2015-08-09 21:03+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,7 +19,9 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: build/lib/customers/templates/customers/index.html:6
+#: customers/templates/customers/create.html:6
 #: customers/templates/customers/index.html:6
+#: customers/templates/customers/index.html:10
 msgid "Customers"
 msgstr "Clientes"
 
@@ -30,3 +32,11 @@ msgstr "Ingles"
 #: build/lib/mysite/settings/__init__.py:97 mysite/settings/__init__.py:97
 msgid "Spanish"
 msgstr "Espanol"
+
+#: customers/forms.py:11
+msgid "Name"
+msgstr "Nombre"
+
+#: customers/templates/customers/index.html:11
+msgid "Actions"
+msgstr "Opcións"

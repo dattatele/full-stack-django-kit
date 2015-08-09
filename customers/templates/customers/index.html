@@ -5,20 +5,28 @@
 <div class="container">
     <h1>{% blocktrans %}Customers{% endblocktrans %}</h1>
     <p>Example module</p>
-    <table>
+    <table class="table">
         <tr>
-            <th>Customer</th>
+            <th>{% blocktrans %}Customers{% endblocktrans %}</th>
+            <th>{% blocktrans %}Actions{% endblocktrans %}</th>
         </tr>
         {% for customer in customers %}
         <tr>
-            <td>{{ customer }}</td>
+            <td>{{ customer.name }}</td>
+            <td>
+                <ul class="list-inline">
+                    <li><a href="{% url 'customers-edit' customer.pk %}"><i class="fa fa-edit"></i></a></li>
+                    <li><a href="{% url 'customers-delete' customer.pk %}"><i class="fa fa-trash"></i></a></li>
+                </ul>
+            </td>
         </tr>
         {% empty %}
         <tr>
-            <td>No customers in database!</td>
+            <td colspan="2">No customers in database!</td>
         </tr>
         {% endfor %}
     </table>
+    <a class="btn btn-primary" href="{% url 'customers-create' %}">Create</a>
 </div>
 {% endblock content %}
 

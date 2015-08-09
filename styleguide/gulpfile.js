@@ -30,16 +30,22 @@ gulp.task("css", function () {
     .pipe(gulp.dest(BUILD_DEST + '/css'));
 });
 
+
+gulp.task("fonts", function () {
+    return gulp.src('bower_components/font-awesome/fonts/*.*')
+      .pipe(gulp.dest(BUILD_DEST + '/fonts'));
+});
+
 gulp.task('nunjucks', function() {
     return gulp.src('src/pages/**/*.html')
         .pipe(nunjucks(nunjucksOpts))
         .pipe(gulp.dest(BUILD_DEST));
 });
 
-gulp.task('build', ['js', 'css', 'nunjucks']);
+gulp.task('build', ['js', 'css', 'fonts', 'nunjucks']);
 
 gulp.task('watch', function(){
   gulp.watch(['src/js/**/*.js'], ['js']);
-    gulp.watch(['src/less/**/*.less'], ['css']);
+    gulp.watch(['src/less/**/*.less'], ['css', 'fonts']);
     gulp.watch(['src/templates/**/*.html', 'src/pages/**/*.html'], ['nunjucks']);
 });
