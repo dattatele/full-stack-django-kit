@@ -1,12 +1,23 @@
-<h1>Customers</h1>
-<p>This example is for verification</p>
-<table>
-    <tr>
-        <td>User</td>
-    </tr>
-    {% for customer in customers %}
-    <tr>
-        <td>{{ customer }}</td>
-    </tr>
-    {% endfor %}
-</table>
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>Customers</h1>
+    <p>Example module</p>
+    <table>
+        <tr>
+            <th>Customer</th>
+        </tr>
+        {% for customer in customers %}
+        <tr>
+            <td>{{ customer }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td>No customers in database!</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock content %}
+
