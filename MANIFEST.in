@@ -10,7 +10,11 @@ recursive-include docs *
 recursive-include mysite *
 recursive-include tests *
 recursive-include public *
+recursive-include locale *
 global-include *.html
 global-include *.txt
 global-exclude *.pyc
+recursive-exclude .tox *
+recursive-exclude ansible *
+recursive-exclude fabfile *
 prune styleguide

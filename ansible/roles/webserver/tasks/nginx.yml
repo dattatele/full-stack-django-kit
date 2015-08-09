@@ -43,6 +43,9 @@
 - name: Install ufw
   apt: name=ufw
 
+- name: Install gettext
+  apt: name=gettext
+
 - name: Allow ssh through firewall
   ufw: proto=tcp port=22 rule=allow
 
@@ -54,3 +57,5 @@
 
 - name: Allow nginx ssl firewall
   ufw: proto=tcp port=443 rule=allow
+
+
