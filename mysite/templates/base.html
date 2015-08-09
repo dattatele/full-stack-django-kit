@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load i18n %}
 {% load staticfiles %}
 <html lang="en">
 <head>
@@ -8,7 +9,6 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
     <title>Django Starter Project</title>
     <link href="{% static 'styleguide/css/site.css' %}" rel="stylesheet">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -40,11 +40,34 @@
     </div>
 </nav>
 
+
+
 {% block content %}
 {% endblock content %}
 <!-- /.container -->
 
-
+<footer class="container">
+    <div class="row">
+        {% if USE_I18N %}
+        <div class="pull-right">
+            <form class="form-inline" action="{% url 'set_language' %}" method="post">{% csrf_token %}
+                <input name="next" type="hidden" value="{{ redirect_to }}" />
+                <select class="form-control" name="language">
+                    {% get_current_language as LANGUAGE_CODE %}
+                    {% get_available_languages as LANGUAGES %}
+                    {% get_language_info_list for LANGUAGES as languages %}
+                    {% for language in languages %}
+                    <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected="selected"{% endif %}>
+                        {{ language.name_local }} ({{ language.code }})
+                    </option>
+                    {% endfor %}
+                </select>
+                <input class="btn btn-default" type="submit" value="Go" />
+            </form>
+        </div>
+        {% endif %}
+    </div>
+</footer>
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->

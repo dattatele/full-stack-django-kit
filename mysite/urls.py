@@ -21,5 +21,6 @@ from django.views.generic import TemplateView
 urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name='index.html')),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^customers/', include('customers.urls'), name='customers')
+    url(r'^customers/', include('customers.urls'), name='customers'),
+    url(r'^i18n/', include('django.conf.urls.i18n')),
 ]

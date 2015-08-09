@@ -14,6 +14,7 @@ Contents:
    intro
    contributing
    workflow
+   translations
 
 
 Indices and tables
