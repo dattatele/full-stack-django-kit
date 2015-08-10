@@ -4,7 +4,7 @@ from django.core.urlresolvers import reverse
 from .models import Customer
 from .forms import CustomerForm
 
-# Create your views here.
+
 def home(request):
     customers = Customer.objects.all()
     return render(request, 'customers/index.html', {
