@@ -9,8 +9,13 @@ DATABASES = {
 
 # temporary key generation
 SECRET_KEY = get_env_variable('DJANGO_SECRET_KEY')
+
 DEBUG = False
-ALLOWED_HOSTS = ['mysite.com']
+PREPEND_WWW = True
+ALLOWED_HOSTS = [
+    'www.mysite.com'
+]
+
 # Change me if using S3 or Cloud Files
 STATIC_URL = '/static/'
 
@@ -38,3 +43,7 @@ EMAIL_TIMEOUT = None
 EMAIL_SSL_KEYFILE = None
 EMAIL_SSL_CERTFILE = None
 
+ADMINS = (
+    ('Administrators', 'administrators@example.com'),
+    ('Developers', 'developers@example.com')
+)

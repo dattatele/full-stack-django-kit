@@ -5,6 +5,12 @@ STATICFILES_DIRS += (
     os.path.join(BASE_DIR, 'styleguide', 'dist'),
 )
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+    }
+}
+
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Create log directory if not already found
@@ -21,14 +27,16 @@ LOGGING = {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
             'filename': 'logs/sql.log',
-            },
         },
+
+    },
     'loggers': {
         'django.db.backends': {
             'handlers': ['sql'],
             'level': 'DEBUG',
             'propagate': True,
             },
-        },
-    }
+
+    },
+}
 

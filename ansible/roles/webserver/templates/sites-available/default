@@ -45,7 +45,7 @@ server {
     }
 
     # add hsts support
-    add_header Strict-Transport-Security "max-age=10886400; includeSubdomains";
+    add_header Strict-Transport-Security "max-age=60; includeSubdomains";
     add_header Content-Security-Policy upgrade-insecure-requests;
     add_header X-Author 'Brady Vitrano';
 
