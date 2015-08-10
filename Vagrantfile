@@ -12,7 +12,7 @@ Vagrant.configure(2) do |config|
     web.vm.box = "ubuntu/trusty64"
 
     web.vm.network "forwarded_port", guest: 443, host: 8443
-    web.vm.network "forwarded_port", guest: 80, host: 8080
+    web.vm.network "forwarded_port", guest: 8080, host: 8080
     web.vm.network "private_network", ip: "192.168.10.10"
 
     web.vm.provision "ansible" do |ansible|

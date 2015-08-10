@@ -4,6 +4,11 @@
   notify:
     - start nginx
 
+- name: Add nginx config
+  copy: src=nginx.conf dest=/etc/nginx/nginx.conf
+  notify:
+    - restart nginx
+
 - name: Add default site
   template: src=sites-available/default dest=/etc/nginx/sites-available/default
   notify:
