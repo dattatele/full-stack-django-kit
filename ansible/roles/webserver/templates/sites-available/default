@@ -28,15 +28,18 @@ server {
     #}
 
     location /favicon.ico {
+        limit_req zone=one burst=5;
         alias /usr/share/nginx/localhost/{{ project_name }}/public/favicon.ico;
     }
 
     location /static {
+        limit_req zone=one burst=5;
         alias /usr/share/nginx/localhost/{{ project_name }}/public; # your Django project's static files - amend as required
     }
 
     # Finally, send all non-media requests to the Django server.
     location / {
+        limit_req zone=one burst=5;
         uwsgi_pass  django;
         include     /etc/nginx/uwsgi_params; # the uwsgi_params file you installed
         uwsgi_param X-Real-IP $remote_addr;
