@@ -40,11 +40,11 @@ server {
     # Finally, send all non-media requests to the Django server.
     location / {
         limit_req zone=one burst=5;
-        uwsgi_pass  django;
         include     /etc/nginx/uwsgi_params; # the uwsgi_params file you installed
         uwsgi_param X-Real-IP $remote_addr;
         uwsgi_param X-Forwarded-For $proxy_add_x_forwarded_for;
         uwsgi_param X-Forwarded-Proto $http_x_forwarded_proto;
+        uwsgi_pass  django;
     }
 
     # add hsts support
