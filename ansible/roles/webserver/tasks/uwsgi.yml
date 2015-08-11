@@ -36,8 +36,5 @@
 - name: Install virtualenv
   pip: name=virtualenv
 
-- name: Install MariaDB Client
-  apt: pkg=libmariadbclient-dev state=installed update_cache=true
-
 - name: Install MySQL Headers
   apt: pkg=libmysqlclient-dev state=installed update_cache=true

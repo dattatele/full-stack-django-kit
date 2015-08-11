@@ -26,7 +26,8 @@ X_FRAME_OPTIONS = 'DENY'
 
 SECURE_CONTENT_TYPE_NOSNIFF = True
 SECURE_SSL_REDIRECT = True
-SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTOCOL", "https")
+# using nginx uwsgi socket therefore xforwarded protocol is empty
+#SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTOCOL", "https")
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'

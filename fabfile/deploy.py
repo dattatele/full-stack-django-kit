@@ -21,9 +21,14 @@ def application():
                 if re.match(r'\w+-%s(\.tar.gz|.*\.whl)' % settings.version.replace('.', '\.'), f)]
     artifacts = [f for f in os.listdir('ansible/roles/application/files')
                 if re.match(r'\w+-%s(\.tar.gz|.*\.whl)' % settings.version.replace('.', '\.'), f)]
+
     if not builds and not artifacts:
-        print 'please build and artifacts for deployment'
+        print 'no builds were found for deployment'
         exit(1)
+
+    if builds and artifacts:
+        # prefer any new builds over existing builds
+        artifacts = None
 
     if not artifacts and builds:
         for package in builds:

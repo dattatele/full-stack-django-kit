@@ -3,7 +3,7 @@
   file: path=/usr/share/nginx/releases/{{ version }} state=directory owner=www-data group=www-data
 
 - name: Upload source package
-  unarchive: src={{ project_name}}-{{ version }}.tar.gz dest=/usr/share/nginx/releases/{{ version }}
+  unarchive: copy=yes src={{ project_name}}-{{ version }}.tar.gz dest=/usr/share/nginx/releases/{{ version }} group=www-data owner=www-data
 
 - name: Upload wheel package
   copy: src={{ project_name}}-{{ version }}-py27-none-any.whl dest=/usr/share/nginx/releases/{{ version }}
@@ -13,9 +13,6 @@
 
 - name: Normalize source directory after unarchive
   command: mv /usr/share/nginx/releases/{{ version }}/{{ project_name}}-{{ version }} /usr/share/nginx/releases/{{ version }}/{{ project_name}}
-
-- name: Update permissions of the application
-  file: path=/usr/share/nginx/releases/{{ version }}/{{ project_name}} state=directory owner=www-data group=www-data
 
 - name: Create virtual environment
   pip: virtualenv=/usr/share/nginx/releases/{{ version }}/env name=django

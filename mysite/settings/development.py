@@ -22,13 +22,26 @@ except OSError:
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+    },
     'handlers': {
         'sql': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
             'filename': 'logs/sql.log',
         },
-
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'logs/debug.log',
+            'formatter': 'simple'
+        },
     },
     'loggers': {
         'django.db.backends': {
@@ -36,7 +49,10 @@ LOGGING = {
             'level': 'DEBUG',
             'propagate': True,
             },
-
+        'django.request': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
     },
 }
-
