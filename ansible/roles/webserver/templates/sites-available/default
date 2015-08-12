@@ -15,7 +15,7 @@ server {
     client_max_body_size 75M;   # edit me
     gzip  on;
     gzip_static on;
-    gzip_comp_level 9;
+    gzip_comp_level 5;
     gzip_min_length 1400;
     gzip_types  text/plain text/css image/png image/gif image/jpeg application/x-javascript text/xml application/xml application/xml+rss text/javascript;
     gzip_vary  on;
@@ -37,7 +37,7 @@ server {
         alias /usr/share/nginx/localhost/{{ project_name }}/public; # your Django project's static files - amend as required
     }
 
-    # Finally, send all non-media requests to the Django server.
+    # Finally, send all other requests to the Django uwsgi server.
     location / {
         limit_req zone=one burst=5;
         include     /etc/nginx/uwsgi_params; # the uwsgi_params file you installed
@@ -45,6 +45,15 @@ server {
         uwsgi_param X-Forwarded-For $proxy_add_x_forwarded_for;
         uwsgi_param X-Forwarded-Proto $http_x_forwarded_proto;
         uwsgi_pass  django;
+        ##
+        # cache
+        ##
+        uwsgi_cache django_cache;
+        add_header X-Cache $upstream_cache_status;
+        #uwsgi_ignore_headers "Set-Cookie"; # WARNING: Know consequences before uncommenting
+        #uwsgi_hide_header "Set-Cookie"; # WARNING: Know consequences before uncommenting
+        uwsgi_cache_key $request_uri; # consider adding an i18n token for cacheing translated pages
+        uwsgi_cache_bypass $http_cache_control
     }
 
     # add hsts support
