@@ -43,7 +43,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'Django Starter Project'
+project = u'Full Stack Django Kit'
 copyright = u'2015, Brady Vitrano'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -214,7 +214,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    ('index', 'django.tex', u'Django Starter Project Documentation',
+    ('index', 'django.tex', project,
      u'Brady Vitrano', 'manual'),
 ]
 
@@ -244,7 +244,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'django_start_project', u'Django Starter Project Documentation',
+    ('index', project, '{} Documentation'.format(project),
      [u'Brady Vitrano'], 1)
 ]
 
@@ -258,8 +258,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    ('index', 'DjangoStarterProject', u'Django Starter Project Documentation',
-     u'Brady Vitrano', 'DjangoStarterProject', 'One line description of project.',
+    ('index', 'DjangoFullStackKit', '{} Documentation'.format(project),
+     u'Brady Vitrano', 'DjangoFullStackKit', 'Full Stack Django Starter Kit',
      'Miscellaneous'),
 ]
 

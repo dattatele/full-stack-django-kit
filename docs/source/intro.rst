@@ -16,27 +16,6 @@ Project Goals
 * Easy deployments and rollbacks
 * Well Documented
 
---------
-Progress
---------
-* Created Ansible playbooks for installation, deployment, and rollbacks
-* Added Vagrant VM provisioning
-* Added Documentation
-* Created ``fabfile.py`` for CI pipeline jobs
-
-------------
-Technologies
-------------
-
-* Ansible - Config management
-* Fabric - Task runner
-* Sphinx - Documentation
-* PyTest - Test Runner
-* Ubuntu Trusty - Linux OS
-* Nginx - Web Server
-* uWSGI - Web Server in Emperor mode
-
-
 ----------------
 Incubation Ideas
 ----------------

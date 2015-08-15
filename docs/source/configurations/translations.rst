@@ -1,7 +1,21 @@
 
-Turning On/Off Translations
-===========================
-Update your default settings for translations.
+Managing Translations
+=====================
+
+
+Requirements
+------------
+We are using the GNU's `gettext`_ for creating messages and compiling translations.
+
+::
+
+    brew install gettext
+    brew link gettext --force
+
+
+Django Settings
+---------------
+
 ::
 
     # file: settings/__init__.py
@@ -31,16 +45,6 @@ Add ability for users to switch between languages
     ]
 
 
-Requirements
-------------
-- http://www.gnu.org/software/gettext/
-
-::
-
-    brew install gettext
-    brew link gettext --force
-
-
 Create Translation Files then Compile
 -------------------------------------
 ::
@@ -52,3 +56,5 @@ Resources
 ---------
 - http://django.readthedocs.org/en/1.8.x/topics/i18n/translation.html
 - http://django-rosetta.readthedocs.org/en/latest/index.html
+
+.. _gettext: http://www.gnu.org/software/gettext/

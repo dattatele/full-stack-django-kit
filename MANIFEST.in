@@ -1,10 +1,10 @@
 include AUTHORS
-include Changelog
-include INSTALL
+#include Changelog
+#include INSTALL
 include MANIFEST.in
 include RELEASE-VERSION
-include README
-include TODO
+#include README
+#include TODO
 include manage.py
 recursive-include docs *
 recursive-include mysite *

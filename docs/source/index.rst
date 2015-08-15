@@ -1,28 +1,17 @@
-.. MySite documentation master file, created by
-   sphinx-quickstart on Fri Feb 27 19:42:43 2015.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+.. Full stack Django starter site
 
-Welcome to Django Starter Site documentation!
-=============================================
+Welcome to Full Stack Django Site!
+==================================
 
 Contents:
+
 
 .. toctree::
    :maxdepth: 2
 
    intro
-   contributing
+   quick-start
+   configurations/index.rst
+   testing/index.rst
+   technologies
    workflow
-   translations
-   email
-   testing
-   incubation
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
