@@ -73,8 +73,7 @@ Use the following commands to register repo with the CI git server and push to t
 ----------------------------
 Vagrant Network Requirements
 ----------------------------
-I am using Vagrants multiple machine for this application. However, Batman isn't using the MySQL db yet. This will be
-added in future.
+I am using Vagrants multiple machine for this application.
 
 * web - 8443, 8080
 * ci - 8153
