@@ -3,11 +3,11 @@
 
 {% block content %}
 <div class="container">
-    <h1>{% blocktrans %}Customers{% endblocktrans %}</h1>
+    <h1>{% trans "Customers" %}</h1>
     <form action="" method="post">
         {% csrf_token %}
-        {{ form }}
-        <input type="submit" value="Submit" />
+        {% include "bootstrap/form.html" %}
+        <input class="btn btn-primary" type="submit" value='{% trans "Save" %}'>
     </form>
 </div>
 {% endblock content %}

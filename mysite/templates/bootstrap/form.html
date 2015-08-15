@@ -1,0 +1,14 @@
+{% for field in form %}
+{% comment %}
+If using bootstrap, you might consider using Crispy Forms for easier HTML/CSS form management.
+I deliberately chose not to use it because I want to minimize my requirements.
+{% endcomment %}
+<div class="form-group {% if field.errors %}has-error{% endif %}">
+    {{ field.label_tag }}
+    {{ field }}
+    {{ field.errors }}
+    {% if field.help_text %}
+    <p class="help-block">{{ field.help_text }}</p>
+    {% endif %}
+</div>
+{% endfor %}
