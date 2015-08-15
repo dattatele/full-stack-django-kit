@@ -7,7 +7,7 @@ from .forms import CustomerForm
 
 
 # adding cache control for demo purposes
-@cache_control(public=True, max_age=600)
+# @cache_control(public=True, max_age=600)
 def home(request):
     customers = Customer.objects.all()
     return render(request, 'customers/index.html', {
