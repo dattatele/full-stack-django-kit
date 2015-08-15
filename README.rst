@@ -1,5 +1,8 @@
 .. image:: https://travis-ci.org/brady-vitrano/django-starter-project.svg?branch=master
     :target: https://travis-ci.org/brady-vitrano/django-starter-project
+.. image:: https://readthedocs.org/projects/django-full-stack-kit/badge/?version=latest
+    :target: https://readthedocs.org/projects/django-full-stack-kit/?badge=latest
+    :alt: Documentation Status    
 
 About
 =====
