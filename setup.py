@@ -44,6 +44,7 @@ setup(
     description='Django demo',
     include_package_data=True,
     tests_require=[
+        'selenium',
         'pytest',
         'pytest-pep8',
         'pytest-django',

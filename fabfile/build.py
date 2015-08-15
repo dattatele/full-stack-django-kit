@@ -75,13 +75,13 @@ def translations():
     """
     Run gulp build task in styleguide for creating minified CSS and JS
     """
-    if settings.environment != 'vagrant':
-        print 'This feature is not ready for multiple environment support, only works for vagrant'
-        exit(1)
-
-    local('ansible webservers --sudo -i ansible/inventory/vagrant.ini -m command -a "../env/bin/django-admin makemessages -a --ignore node_modules chdir=/usr/share/nginx/localhost/mysite"')
-    local('ansible webservers --sudo -i ansible/inventory/vagrant.ini -m command -a "../env/bin/django-admin compilemessages chdir=/usr/share/nginx/localhost/mysite"')
-    local('ansible webservers --sudo -i ansible/inventory/vagrant.ini -m command -a "chown -R www-data:www-data locale/ chdir=/usr/share/nginx/localhost/mysite"')
-    local('ansible webservers --sudo -i ansible/inventory/vagrant.ini -a "touch /etc/uwsgi/configs/localhost.ini"')
+    if settings.environment == 'development':
+        local('django-admin makemessages -a --ignore node_modules')
+        local('django-admin compilemessages')
+    else:
+        local('ansible webservers --sudo -i ansible/inventory/vagrant.ini -m command -a "../env/bin/django-admin makemessages -a --ignore node_modules chdir=/usr/share/nginx/localhost/mysite"')
+        local('ansible webservers --sudo -i ansible/inventory/vagrant.ini -m command -a "../env/bin/django-admin compilemessages chdir=/usr/share/nginx/localhost/mysite"')
+        local('ansible webservers --sudo -i ansible/inventory/vagrant.ini -m command -a "chown -R www-data:www-data locale/ chdir=/usr/share/nginx/localhost/mysite"')
+        local('ansible webservers --sudo -i ansible/inventory/vagrant.ini -a "touch /etc/uwsgi/configs/localhost.ini"')
 
 
