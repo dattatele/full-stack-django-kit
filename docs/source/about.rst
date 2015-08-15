@@ -1,6 +1,6 @@
-=======
-Welcome
-=======
+===========================
+About Django Full Stack Kit
+===========================
 This project was built to experiment with various best practices for building and managing a Django website. The target
 audience for this project is an agile team that practices continuous integration and continuous delivery.
 

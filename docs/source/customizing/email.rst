@@ -17,6 +17,7 @@ Test
 ----
 Emails will be faked.
 ::
+
     # mysite/settings/test.py
     EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
 
@@ -24,6 +25,7 @@ Vagrant
 -------
 Emails will be save on the vagrant server.
 ::
+
     # mysite/settings/vagrant.py
     EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
     EMAIL_FILE_PATH = 'tmp/sentmail'

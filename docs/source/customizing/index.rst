@@ -1,6 +1,6 @@
-==============
-Configurations
-==============
+===========
+Customizing
+===========
 
 Things to customize your application
 
