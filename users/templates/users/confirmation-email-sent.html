@@ -4,7 +4,7 @@
 {% block content %}
 <div class="container">
     <h1>{% trans "Confirm Email" %}</h1>
-    <p>Email sent to <strong>{{ user.email }} with confirmation link.</strong></p>
+    <p>Email sent to <strong>{{ user.email }}</strong>  with confirmation link.</p>
     <p>If you do not receive email within 2-5 mins, please try again.</p>
     <a href="{% url 'send_email_confirmation' %}" class="btn btn-primary">Resend Confirmation</a>
 </div>
