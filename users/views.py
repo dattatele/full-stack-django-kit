@@ -9,10 +9,6 @@ from django.core import signing
 from .forms import RegistrationForm, LoginForm
 
 
-@login_required
-def home(request):
-    return render(request, 'users/home.html')
-
 def register(request):
     form = RegistrationForm(request.POST or None)
     if form.is_valid():
@@ -60,21 +56,6 @@ def auth(request):
         messages.error(request, 'Invalid credentials')
     return HttpResponseRedirect(reverse('login'))
 
-@login_required
-def limited(request):
-    if request.user.groups.filter(name='member').exists():
-        return HttpResponseRedirect(reverse('customers-home'))
-    return render(request, 'users/confirm-email.html')
-
-@login_required
-def send_email_confirmation(request):
-    user = request.user
-    if user.groups.filter(name='member').exists():
-        # email already confirmed
-        return redirect('customers-home')
-    user.send_confirmation_email(request)
-    return render(request, 'users/confirmation-email-sent.html')
-
 
 def confirm_email(request, code):
     from django.core.signing import BadSignature
@@ -88,4 +69,26 @@ def confirm_email(request, code):
     (group, created) = Group.objects.get_or_create(name='member')
     user.groups.add(group)
     return redirect('home')
+
+
+@login_required
+def home(request):
+    return render(request, 'users/home.html')
+
+
+@login_required
+def limited(request):
+    if request.user.groups.filter(name='member').exists():
+        return HttpResponseRedirect(reverse('customers-home'))
+    return render(request, 'users/confirm-email.html')
+
+
+@login_required
+def send_email_confirmation(request):
+    user = request.user
+    if user.groups.filter(name='member').exists():
+        # email already confirmed
+        return redirect('customers-home')
+    user.send_confirmation_email(request)
+    return render(request, 'users/confirmation-email-sent.html')
 
