@@ -24,4 +24,7 @@ urlpatterns = [
     url(r'^customers/', include('customers.urls'), name='customers'),
     url(r'^user/', include('users.urls'), name='users'),
     url(r'^i18n/', include('django.conf.urls.i18n')),
+    url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}, name='logout'),
+    url(r'^login/$', 'users.views.login_view', name='login'),
+    url(r'^authenticate/$', 'users.views.auth', name='authenticate')
 ]

@@ -14,19 +14,23 @@
         <tr>
             <td>{{ customer.name }}</td>
             <td>
+                {% if user.is_authenticated %}
                 <ul class="list-inline">
                     <li><a href="{% url 'customers-edit' customer.pk %}"><i class="fa fa-edit"></i></a></li>
                     <li><a href="{% url 'customers-delete' customer.pk %}"><i class="fa fa-trash"></i></a></li>
                 </ul>
+                {% endif %}
             </td>
         </tr>
         {% empty %}
         <tr>
-            <td colspan="2">No customers in database!</td>
+            <td colspan="2">{% trans 'No customers in database!' %}</td>
         </tr>
         {% endfor %}
     </table>
+    {% if user.is_authenticated %}
     <a class="btn btn-primary" href="{% url 'customers-create' %}">Create</a>
+    {% endif %}
 </div>
 {% endblock content %}
 

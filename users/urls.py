@@ -14,8 +14,16 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
 from django.conf.urls import include, url
+from django.views.generic import TemplateView
 from . import views
 
 urlpatterns = [
+    url(r'^$', views.home, name='home'),
     url(r'^register$', views.register, name='users-register'),
+    url(r'^limited', views.limited, name='limited'),
+    url(r'^email/confirm/(?P<code>.+)', views.confirm_email, name='confirm-email'),
+    url(r'^email/confirmation',
+        TemplateView.as_view(template_name='users/confirmation-email-sent.html'),
+        name='confirmation-sent'),
+    url(r'^email/send-confirmation', views.send_email_confirmation, name='send_email_confirmation'),
 ]

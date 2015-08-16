@@ -1,10 +1,14 @@
-from django.views.decorators.cache import cache_control
+# from django.views.decorators.cache import cache_control
+from django.contrib.auth.decorators import login_required, permission_required, user_passes_test
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
 from .models import Customer
 from .forms import CustomerForm
 
+
+def is_member(user):
+    return user.groups.filter(name='member').exists()
 
 # adding cache control for demo purposes
 # @cache_control(public=True, max_age=600)
@@ -14,6 +18,9 @@ def home(request):
         "customers": customers
     })
 
+
+@login_required
+@user_passes_test(is_member, login_url=reverse_lazy('limited'))
 def create(request):
     form = CustomerForm(request.POST or None)
     if form.is_valid():
@@ -24,6 +31,7 @@ def create(request):
         "form": form
     })
 
+@login_required
 def edit(request, pk):
     customer = get_object_or_404(Customer, pk=pk)
     form = CustomerForm(request.POST or None, instance=customer)
@@ -36,6 +44,7 @@ def edit(request, pk):
         "form": form
     })
 
+@login_required
 def delete(request, pk):
     customer = get_object_or_404(Customer, pk=pk)
     customer.delete()

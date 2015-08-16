@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+<div class="container">
+    <h1>{% trans "Limited Access" %}</h1>
+    <p>Please confirm your email <strong>{{ user.email }}</strong> to continue using the site.</p>
+    <a href="{% url 'send_email_confirmation' %}" class="btn btn-primary">Resend Confirmation</a>
+</div>
+{% endblock %}
