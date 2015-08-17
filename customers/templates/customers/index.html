@@ -14,10 +14,14 @@
         <tr>
             <td>{{ customer.name }}</td>
             <td>
-                {% if user.is_authenticated %}
+                {% if 'customers' in perms %}
                 <ul class="list-inline">
+                    {% if perms.customers.change_customer %}
                     <li><a href="{% url 'customers-edit' customer.pk %}"><i class="fa fa-edit"></i></a></li>
+                    {% endif %}
+                    {% if perms.customers.delete_customer %}
                     <li><a href="{% url 'customers-delete' customer.pk %}"><i class="fa fa-trash"></i></a></li>
+                    {% endif %}
                 </ul>
                 {% endif %}
             </td>
@@ -28,7 +32,7 @@
         </tr>
         {% endfor %}
     </table>
-    {% if user.is_authenticated %}
+    {% if perms.customers.add_customer %}
     <a class="btn btn-primary" href="{% url 'customers-create' %}">Create</a>
     {% endif %}
 </div>

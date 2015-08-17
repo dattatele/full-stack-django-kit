@@ -34,19 +34,24 @@ def login_view(request):
     return render(request, 'users/login.html', {
         'form': form,
         'messages': messages.get_messages(request),
-        'next': request.GET.get('next')
+        'next': request.GET.get('next', '')
     })
 
 
 def auth(request):
-    username = request.POST['username']
-    password = request.POST['password']
+    try:
+        username = request.POST['username']
+        password = request.POST['password']
+    except:
+        return redirect('login')
     user = authenticate(username=username, password=password)
     if user is not None:
         if user.is_active:
             login(request, user)
             # Redirect to a success page.
-            next_url = request.POST.get('next', reverse('customers-home'))
+            next_url = request.POST.get('next')
+            if not next_url:
+                next_url = 'home'
             return redirect(next_url)
         else:
             # Return a 'disabled account' error message

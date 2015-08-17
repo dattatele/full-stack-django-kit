@@ -13,7 +13,9 @@ var nunjucksOpts = {
 var BUILD_DEST = 'dist/styleguide';
 
 gulp.task('js', function() {
-  return gulp.src('src/**/*.js')
+  return gulp.src(['bower_components/jquery/dist/jquery.js',
+    'bower_components/bootstrap/dist/js/bootstrap.js',
+    'src/**/*.js'])
     .pipe(sourcemaps.init())
     .pipe(concat('site.js'))
     .pipe(sourcemaps.write())
